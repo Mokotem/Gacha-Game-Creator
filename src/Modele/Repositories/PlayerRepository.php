@@ -3,28 +3,25 @@
 namespace GachaGameCreator\Modele\Repositories;
 
 use GachaGameCreator\Modele\Data\Player;
+use PDOStatement;
 
 class PlayerRepository
 {
-    public static function getWhere(string $attr, string $value)
+    public static function getWhere(string $attr, string $value) : PDOStatement
     {
         $state = Connexion::getPdo()->prepare(
             "SELECT * FROM Player WHERE ".$attr."=:vid;");
         $state->execute(["vid" => $value]);
 
-        if (is_null($state->errorCode()) && $state->rowCount() > 0)
-        {
-            return PlayerRepository::getFromTaba($state->fetch());
-        }
-        return null;
+        return $state;
     }
 
-    public static function getFromId(int $id) : ?Player
+    public static function getFromId(int $id) : PDOStatement
     {
         return PlayerRepository::getWhere("idPlayer", $id);
     }
 
-    public static function getFromEmail(string $email) : Player
+    public static function getFromEmail(string $email) : PDOStatement
     {
         return PlayerRepository::getWhere("email", $email);
     }
@@ -39,7 +36,7 @@ class PlayerRepository
             $taba["money"]);
     }
 
-    public static function insert(Player $p) : bool
+    public static function insert(Player $p) : PDOStatement
     {
         $state = Connexion::getPdo()->prepare(
             "INSERT INTO Player (email, name, password, money) VALUES (:email, :name, :password, :money);"
@@ -49,11 +46,11 @@ class PlayerRepository
                 "email" => $p->email,
                 "name" => $p->name,
                 "password" => $p->password,
-                "money" => $p->money
+                "money" => 0
             ]
         );
 
-        return is_null($state->errorCode());
+        return $state;
     }
 }
 

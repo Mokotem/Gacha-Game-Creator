@@ -4,10 +4,11 @@
 namespace GachaGameCreator\Modele\Repositories;
 
 use \PDO;
+use PDOException;
 
 class Connexion
 {
-    private static Connexion $instance;
+    private static ?Connexion $instance = null;
 
     public static function getPdo() : PDO
     {
@@ -26,17 +27,12 @@ class Connexion
     {
         $config = parse_ini_file(__DIR__ . "/config.ini", false, INI_SCANNER_RAW);
 
-        $nomHote = $config["nomHote"];
-        $nomBaseDeDonnees = $config["nomBaseDeDonnees"];
-        $port = $config["port"];
-        $login = $config["login"];
-        $motDePasse = $config["motDePasse"];
-
         $this->pdo = new PDO(
-            "mysql:host=$nomHote;port=$port;dbname=$nomBaseDeDonnees;charset=utf8mb4",
-            $login,
-            $motDePasse
+            "sqlsrv:server = tcp:" . $config["server"] . "," . $config["port"] . "; Database = " . $config["database"],
+            $config["login"],
+            $config["password"]
         );
+
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }

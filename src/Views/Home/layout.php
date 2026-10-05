@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <head>
     <link href="main.css" rel="stylesheet" />
+    <title>GGC > Home</title>
 </head>
 <body>
     <div>

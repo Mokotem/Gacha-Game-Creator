@@ -16,11 +16,6 @@ class HomeControler extends BaseControler
         $this->afficher("homeView.php");
     }
 
-    public function insertAccount()
-    {
-        
-    }
-
     public function confirmPassword()
     {
         $this->afficher("confirmPassword.html");

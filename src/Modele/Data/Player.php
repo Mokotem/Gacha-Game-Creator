@@ -11,17 +11,17 @@ class Player
     public string $password;
 
     public function __construct(
-        int $id,
+        ?int $id,
         string $email,
         string $name,
         string $password,
-        int $money = 0)
+        ?int $money = null)
     {
-        $this->id = $id;
+        $this->id = is_null($id) ? -1 : $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
-        $this->money = $money;
+        $this->money = is_null($money) ? 0 : $money;
     }
 }
 

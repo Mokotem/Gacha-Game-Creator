@@ -3,6 +3,7 @@
 /** 
  * @var string $message;
  * @var int $code;
+ * @var string $redirect;
  * */
 
 if (!isset($code) || !isset($message))
@@ -14,5 +15,6 @@ if (!isset($code) || !isset($message))
 ?>
 
 <h1>Error <?=$code?></h1>
-<p><?=$message?></p>
+<p class="error"><?=$message?></p>
 <a href="index.php?action=home"><- Home</a>
+<?=$redirect?>

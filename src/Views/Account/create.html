@@ -7,22 +7,22 @@
 
 <script src="scripts/checkCreationForm.js"></script>
 
-<form name="form1" method="post" action="index.php?action=insertAccount" onsubmit="return Check()">
+<form name="form1" method="post" action="index.php?bro=account&action=create" onsubmit="return Check()">
     <div>
         <label for="email">Email: </label> 
-        <input type="email" id="email" name="email" required/>
+        <input type="email" id="email" name="email" maxlength="128" required/>
         <p class="error" id="emailError"></p>
     </div>
 
     <div>
         <label for="uname">User name: </label>
-        <input type="text" id="uname" name="userName" required />
+        <input type="text" id="uname" name="name" maxlength="48" required />
         <p class="error" id="nameError"></p>
     </div>
 
     <div>
         <label for="pswd">Password: </label>
-        <input type="password" name="userPassword" minlength="4" maxlength="16"  id="pswd" required/>
+        <input type="password" name="password" minlength="4" maxlength="16" id="pswd" required/>
         <p class="error" id="passwordError"></p>
     </div>
 

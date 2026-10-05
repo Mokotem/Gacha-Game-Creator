@@ -24,9 +24,9 @@
         Account
     </h2>
     <div>
-        <a>Sign in</a>
+        <a href="index.php?bro=account&action=signinForm">Sign in</a>
     </div>
     <div>
-        <a href="index.php?bro=account&action=create">Sign up</a>
+        <a href="index.php?bro=account&action=createForm">Sign up</a>
     </div>
 </section>

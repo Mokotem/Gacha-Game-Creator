@@ -22,7 +22,7 @@ abstract class BaseControler
      * 1: action no exists
      * 2: contr does not exists
      */
-    public static function error(string $message, int $code)
+    public static function error(string $message, string $code, string $redirect = "")
     {
         $bodyPath = __DIR__ . "/../Views/Error.php";
         require(__DIR__ . "/../Views/Home/layout.php");

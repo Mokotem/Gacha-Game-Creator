@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <head>
     <link href="main.css" rel="stylesheet" />
+    <title>GGC > Account</title>
 </head>
 <body>
     <div>
