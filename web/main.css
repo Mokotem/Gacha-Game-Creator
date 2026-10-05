@@ -1,0 +1,92 @@
+﻿
+
+body
+{
+    font-family: 'Cascadia Code';
+    background-color: rgb(196, 196, 196);
+}
+
+body > div
+{
+    width: 720px;
+    max-width: 100%;
+    margin: 0px auto;
+    font-size: 16px;
+}
+
+body > div > main, body > div > secion, body > div > nav, body > div > footer
+{
+    width: 100%;
+    padding: 32px;
+    background-color: white;
+
+    border-style: solid;
+    margin-top: 16px;
+}
+
+nav 
+{
+    display:flex;
+}
+
+nav > a
+{
+    margin-right: 32px;
+}
+
+h1
+{
+    text-align: center;
+    font-size: 48px;
+}
+
+
+h2
+{
+    font-size: 32px;
+}
+
+a
+{
+    font-size: 24px;
+}
+
+.line
+{
+    border-bottom:solid;
+}
+
+section
+{
+    margin: 16px 0px;
+}
+
+form
+{
+    width: 100%;
+    max-width: 480px;
+    margin: 0px auto;
+}
+
+form > div
+{
+    margin: 8px 0px;
+}
+
+input, button
+{
+    padding: 8px;
+}
+
+input
+{
+    width:100%;
+    box-sizing: border-box
+}
+
+.error
+{
+    margin: 2px 0px 8px 0px;
+    font-size: 14px;
+    color:red;
+}

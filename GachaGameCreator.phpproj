@@ -1,0 +1,14 @@
+<Project Sdk="Devsense.Php.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>c4394f23-8bd2-3ffa-fc65-ece645cc503b</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnvName>PHPDev</EnvName>
+    <RuntimeVersion>8.5</RuntimeVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\Modele\" />
+    <Folder Include="src\Controler\" />
+    <Folder Include="src\Views\elements\" />
+  </ItemGroup>
+</Project>
