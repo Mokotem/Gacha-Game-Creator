@@ -4,7 +4,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <EnvName>PHPDev</EnvName>
-    <RuntimeVersion>8.5</RuntimeVersion>
+    <RuntimeVersion>8.4</RuntimeVersion>
+    <RootNamespace>GachaGameCreator</RootNamespace>
+    <WebRoot />
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Modele\" />

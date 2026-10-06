@@ -4,7 +4,7 @@ namespace GachaGameCreator\Controler;
 
 abstract class BaseControler
 {
-    private readonly string $directory;
+    private string $directory;
 
     protected function __construct(string $directory)
     {
