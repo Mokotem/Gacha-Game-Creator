@@ -18,14 +18,32 @@ button, body
     font-size: 16px;
 }
 
-body > div > main, body > div > secion, body > div > nav, body > div > footer
-{
-    width: 100%;
-    padding: 32px;
-    background-color: white;
+    body > div > main, body > div > secion, body > div > nav, body > div > footer {
+        box-sizing: border-box;
+        padding: 32px;
+        background-color: white;
+        border-style: solid;
+        margin-top: 16px;
+    }
 
+.message 
+{
+    box-sizing: border-box;
+    padding: 16px;
+    background-color: white;
     border-style: solid;
     margin-top: 16px;
+    border-radius: 2048px;
+
+    font-size: 16px;
+    display:flex;
+    justify-content:space-between;
+    vertical-align:central;
+}
+
+.message > p
+{
+    margin: auto 0px;
 }
 
 nav 

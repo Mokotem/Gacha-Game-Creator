@@ -2,7 +2,9 @@
 
 namespace GachaGameCreator\Modele\Repositories;
 
+use GachaGameCreator\Controler\BaseControler;
 use GachaGameCreator\Modele\Data\Player;
+use PDOException;
 use PDOStatement;
 
 class PlayerRepository
@@ -36,21 +38,30 @@ class PlayerRepository
             $taba["money"]);
     }
 
-    public static function insert(Player $p) : PDOStatement
+    public static function insert(Player $p) : bool
     {
         $state = Connexion::getPdo()->prepare(
             "INSERT INTO Player (email, name, password, money) VALUES (:email, :name, :password, :money);"
         );
-        $state->execute(
-            [
-                "email" => $p->email,
-                "name" => $p->name,
-                "password" => $p->password,
-                "money" => 0
-            ]
-        );
 
-        return $state;
+        try
+        {
+            $state->execute(
+                [
+                    "email" => $p->email,
+                    "name" => $p->name,
+                    "password" => $p->password,
+                    "money" => 0
+                ]
+            );
+        }
+        catch (PDOException $ex)
+        {
+            BaseControler::errorFromPDO($ex);
+            return false;
+        }
+
+        return true;
     }
 }
 

@@ -16,29 +16,35 @@ class AccountControler extends BaseControler
     {
         $this->afficher("create.html");
     }
-    public function create()
+    public function create() : bool
     {
         $player = PlayerRepository::getFromTaba($_POST);
-        $state = PlayerRepository::insert($player);
 
-        if (is_null($state->errorCode()))
+        $state = PlayerRepository::getFromEmail($_POST["email"]);
+        $state->fetchAll();
+        if ($state->rowCount() > 0)
         {
+            BaseControler::error("An account with the email '" . $_POST["email"] . "' already exists.",
+                3,
+                "<a href=index.php?bro=account&action=createForm><- Create account</a>");
+            return false;
+        }
+
+        if (PlayerRepository::insert($player))
+        {
+            $this->args["message"] = "Account created!";
             $this->signinForm();
+            return true;
         }
-        else
-        {
-            BaseControler::error(
-                $state->errorInfo(),
-                $state->errorCode(),
-                "<a href='index.php?bro=account&action=create'><- Create account</a>"
-            );
-        }
+
+        return false;
     }
 
     public function signinForm()
     {
         $this->afficher("signin.html");
     }
+
     public function signin()
     {
 

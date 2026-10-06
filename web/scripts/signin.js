@@ -22,4 +22,3 @@ function onIdClick()
     email.hidden = true;
     email.required = false;
 }
-

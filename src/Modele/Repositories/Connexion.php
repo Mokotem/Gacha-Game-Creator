@@ -3,6 +3,7 @@
 
 namespace GachaGameCreator\Modele\Repositories;
 
+use GachaGameCreator\Controler\BaseControler;
 use \PDO;
 use PDOException;
 
@@ -27,11 +28,18 @@ class Connexion
     {
         $config = parse_ini_file(__DIR__ . "/config.ini", false, INI_SCANNER_RAW);
 
-        $this->pdo = new PDO(
-            "sqlsrv:server = tcp:" . $config["server"] . "," . $config["port"] . "; Database = " . $config["database"],
-            $config["login"],
-            $config["password"]
-        );
+        try
+        {
+            $this->pdo = new PDO("sqlsrv:server = tcp:".$config["server"].",1433; Database = ".$config["database"],
+                $config["login"],
+                $config["motDePasse"]);
+        }
+        catch (PDOException $ex)
+        {
+            BaseControler::setPDOErrorRedirect("");
+            BaseControler::errorFromPDO($ex);
+            return;
+        }
 
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

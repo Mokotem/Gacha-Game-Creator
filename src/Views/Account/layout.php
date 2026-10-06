@@ -1,5 +1,7 @@
 <?php
-    /** @var string $bodyPath */
+    /** @var string $bodyPath
+     * @var string $message
+     * */
 ?>
 
 <!DOCTYPE html>
@@ -9,9 +11,19 @@
 </head>
 <body>
     <div>
+        <?php
+
+        if (strlen($message) > 1)
+        {
+            require(__DIR__ . "/../displayMessage.php");
+        }
+
+        ?>
         <main>
             <?php
-                require($bodyPath);
+            
+            require($bodyPath);
+            
             ?>
         </main>
         <footer>

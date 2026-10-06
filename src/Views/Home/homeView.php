@@ -10,10 +10,10 @@
         Gachas
     </h2>
     <div>
-        <a>Create</a>
+        <a href="index.php?bro=home&action=create">Create</a>
     </div>
     <div>
-        <a>Explore</a>
+        <a href="index.php?bro=home&action=explore">Explore</a>
     </div>
 </section>
 
