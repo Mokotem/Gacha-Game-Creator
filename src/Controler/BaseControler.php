@@ -17,7 +17,7 @@ abstract class BaseControler
         $this->args = [];
     }
 
-    protected function afficher(string $page, array $args = [])
+    protected function showp(string $page, array $args = [])
     {
         extract($args);
         extract($this->args);

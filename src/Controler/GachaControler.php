@@ -10,6 +10,11 @@ class GachaControler extends BaseControler
     {
         parent::__construct("Gacha");
     }
+
+    public function create()
+    {
+        $this->showp("create.html");
+    }
 }
 
 ?>

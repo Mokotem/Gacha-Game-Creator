@@ -39,7 +39,7 @@ if (isset($_GET["action"]))
     }
     else
     {
-        BaseControler::error("Action '" . $action . "' does not exists.", 1);
+        BaseControler::error("Action '" . $action . "' is not implemented.", 1);
         goto end;
     }
 }

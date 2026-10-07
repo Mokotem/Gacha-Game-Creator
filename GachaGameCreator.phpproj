@@ -8,8 +8,4 @@
     <RootNamespace>GachaGameCreator</RootNamespace>
     <WebRoot />
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\Modele\" />
-    <Folder Include="src\Views\Gacha\" />
-  </ItemGroup>
 </Project>

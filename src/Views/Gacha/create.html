@@ -1,0 +1,23 @@
+
+
+<h1>
+    Create a gacha
+</h1>
+
+<script href="scripts/checkGachaForm.js">
+
+</script>
+
+<form name="form1" method="post" action="index.php?bro=gacha&action=mygachas" onsubmit="return Check()">
+    <div>
+        <label for="title">gacha title: </label>
+        <input required type="text" name="title" id="title"/>
+        <p class="error" id="titleError"></p>
+    </div>
+    <div>
+        <label for="desc">description: </label>
+        <textarea id="desc", name="desc"></textarea>
+        <p class="error" id="descError"></p>
+    </div>
+    <button type="submit">Create</button>
+</form>

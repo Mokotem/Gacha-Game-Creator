@@ -13,12 +13,12 @@ class HomeControler extends BaseControler
 
     public function home()
     {
-        $this->afficher("homeView.php");
+        $this->showp("homeView.php");
     }
 
     public function confirmPassword()
     {
-        $this->afficher("confirmPassword.html");
+        $this->showp("confirmPassword.html");
     }
 }
 

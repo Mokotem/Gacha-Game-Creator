@@ -14,7 +14,7 @@ class AccountControler extends BaseControler
 
     public function createForm()
     {
-        $this->afficher("create.html");
+        $this->showp("create.html");
     }
     public function create() : bool
     {
@@ -42,7 +42,7 @@ class AccountControler extends BaseControler
 
     public function signinForm()
     {
-        $this->afficher("signin.html");
+        $this->showp("signin.html");
     }
 
     public function signin()
