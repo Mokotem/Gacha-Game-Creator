@@ -8,6 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Modele\" />
-    <Folder Include="src\Controler\" />
+    <Folder Include="src\Views\Create\" />
   </ItemGroup>
 </Project>
