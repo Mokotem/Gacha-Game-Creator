@@ -1,12 +1,12 @@
 <?php
 
 /** 
- * @var string $message;
+ * @var string $errorMessage;
  * @var int $code;
  * @var string $redirect;
  * */
 
-if (!isset($code) || !isset($message))
+if (!isset($code) || !isset($errorMessage))
 {
     $name = "Unknown error";
     $code = "GGC0";
@@ -15,7 +15,7 @@ if (!isset($code) || !isset($message))
 ?>
 
 <h1>Error <?=$code?></h1>
-<p class="error"><?=$message?></p>
+<p class="error"><?= $errorMessage?></p>
 <br />
 <?=$redirect?>
 <br />
