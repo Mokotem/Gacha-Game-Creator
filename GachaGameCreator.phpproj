@@ -9,7 +9,6 @@
     <WebRoot />
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\Modele\" />
     <Folder Include="src\Controler\" />
   </ItemGroup>
 </Project>
