@@ -2,9 +2,10 @@
 
 namespace GachaGameCreator\Modele\Data;
 
-class Player
+use BaseData;
+
+class Player extends BaseData
 {
-    public int $id;
     public string $email;
     public string $name;
     public int $money;
@@ -18,6 +19,7 @@ class Player
         string $password,
         ?int $money = null)
     {
+        parent::__construct($id);
         $this->id = is_null($id) ? -1 : $id;
         $this->name = $name;
         $this->email = $email;
