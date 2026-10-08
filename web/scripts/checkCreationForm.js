@@ -1,5 +1,24 @@
 
+function isAlpha(code)
+{
+    return (code > 64 && code < 91) || (code > 96 && code < 123);
+}
 
+function isAlphaNumeric(str)
+{
+    var code, i;
+
+    for (i = 0; i < str.length; i++)
+    {
+        code = str.charCodeAt(i);
+        if (!(code > 47 && code < 58) && // numeric (0-9)
+            !isAlpha(code))
+        { // lower alpha (a-z)
+            return false;
+        }
+    }
+    return true;
+}
 
 function Check()
 {
@@ -8,7 +27,7 @@ function Check()
 
     if (!isAlphaNumeric(form["uname"].value))
     {
-        errorAt("nameError", "special characters are not allowed.");
+        errorAt("nameError", "special characters and spaces are not allowed.");
         errored = true;
     }
     else if (!isAlpha(form["uname"].value.charCodeAt(0)))
@@ -23,7 +42,7 @@ function Check()
 
     if (!isAlphaNumeric(form["pswd"].value))
     {
-        errorAt("passwordError", "special characters are not allowed.");
+        errorAt("passwordError", "special characters and spaces are not allowed.");
         errored = true;
     }
     else
@@ -59,27 +78,6 @@ function Check()
 
     return false;
 }
-
-function isAlpha(code)
-{
-    return (code > 64 && code < 91) || (code > 96 && code < 123);
-}
-
-function isAlphaNumeric(str)
-{
-    var code, i;
-
-    for (i = 0; i < str.length; i++)
-    {
-        code = str.charCodeAt(i);
-        if (!(code > 47 && code < 58) && // numeric (0-9)
-            !isAlpha(code))
-        { // lower alpha (a-z)
-            return false;
-        }
-    }
-    return true;
-};
 
 function errorAt(id, message)
 {

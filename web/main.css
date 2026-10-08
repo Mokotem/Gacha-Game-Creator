@@ -18,13 +18,32 @@ button, body
     font-size: 16px;
 }
 
-    body > div > main, body > div > secion, body > div > nav, body > div > footer {
-        box-sizing: border-box;
-        padding: 32px;
-        background-color: white;
-        border-style: solid;
-        margin-top: 16px;
-    }
+
+nav {
+    padding: 16px;
+    margin: 0px;
+    border-style: solid;
+    box-sizing: border-box;
+    margin-top: 16px;
+    background-color: white;
+
+    display:flex;
+    justify-content:space-between;
+}
+
+nav a
+{
+    margin-right: 16px;
+}
+
+body > div > main, body > div > secion, body > div > footer
+{
+    padding: 32px;
+    background-color: white;
+    border-style: solid;
+    box-sizing: border-box;
+    margin-top: 16px;
+}
 
 .message 
 {
@@ -95,7 +114,16 @@ form > div
     margin: 8px 0px;
 }
 
-input, button
+form textarea
+{
+    box-sizing: border-box;
+    max-height: 240px;
+    min-height: 120px;
+    width:100%;
+    resize:vertical;
+}
+
+input, button, textarea
 {
     padding: 8px;
 }

@@ -17,7 +17,7 @@ abstract class BaseControler
         $this->args = [];
     }
 
-    protected function afficher(string $page, array $args = [])
+    protected function showp(string $page, array $args = [])
     {
         extract($args);
         extract($this->args);
@@ -31,7 +31,7 @@ abstract class BaseControler
      * 2: contr does not exists
      * 3: email allready exists
      */
-    public static function error(string $message, int $pcode, string $redirect = "")
+    public static function error(string $errorMessage, int $pcode, string $redirect = "")
     {
         $code = "GGC" . $pcode;
         $bodyPath = __DIR__ . "/../Views/Error.php";
@@ -48,7 +48,7 @@ abstract class BaseControler
     public static function errorFromPDO(PDOException $pdo, string $redirect = "")
     {
         $code = $pdo->getCode();
-        $message = $pdo->getMessage();
+        $errorMessage = $pdo->getMessage();
 
         if (strlen($redirect) < 2)
         {

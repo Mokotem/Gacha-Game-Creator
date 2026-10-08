@@ -8,12 +8,19 @@
     <title>GGC > Home</title>
 </head>
 <body>
+    <?php
+
+    require(__DIR__ . "/../nav.html");
+    ?>
     <div>
-        <nav>
-            <a href="index.php?bro=home&action=home">Home</a>
-            <a href="index.php?bro=home&action=create">Create</a>
-            <a href="index.php?bro=home&action=explore">Explore</a>
-        </nav>
+        <?php
+
+        if (strlen($message) > 1)
+        {
+            require(__DIR__ . "/../displayMessage.php");
+        }
+
+        ?>
         <main>
             <?php
                 require($bodyPath);

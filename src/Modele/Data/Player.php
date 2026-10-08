@@ -10,6 +10,7 @@ class Player extends BaseData
     public string $name;
     public int $money;
     public string $password;
+    public ?bool $isAdmin;
 
     public function __construct(
         ?int $id,
@@ -24,6 +25,7 @@ class Player extends BaseData
         $this->email = $email;
         $this->password = $password;
         $this->money = is_null($money) ? 0 : $money;
+        $this->isAdmin = null;
     }
 }
 

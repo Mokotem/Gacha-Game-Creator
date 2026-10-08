@@ -63,6 +63,19 @@ class PlayerRepository
 
         return true;
     }
+
+    public static function isAdmin(Player $p) : bool
+    {
+        if (is_null($p->isAdmin))
+        {
+            $state = Connexion::getPdo()->prepare("SELECT * FROM Admin WHERE idPlayer=':id';");
+            $state->execute(["id" => $p->id]);
+            $state->fetch();
+            $p->isAdmin = $state->rowCount() > 0;
+        }
+
+        return $p->isAdmin;
+    }
 }
 
 ?>
