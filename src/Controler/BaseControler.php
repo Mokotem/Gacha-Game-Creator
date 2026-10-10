@@ -17,11 +17,13 @@ abstract class BaseControler
         $this->args = [];
     }
 
+    public abstract function defaultAction();
+
     protected function showp(string $page, array $args = [])
     {
         extract($args);
         extract($this->args);
-        $bodyPath = __DIR__ . "/../Views/".$this->directory."/$page";
+        $bodyPath = __DIR__ . "/../Views/" . $this->directory . "/$page";
         require(__DIR__ . "/../Views/" . $this->directory . "/layout.php");
         $this->args = [];
     }
@@ -30,6 +32,7 @@ abstract class BaseControler
      * 1: action no exists
      * 2: contr does not exists
      * 3: email allready exists
+     * 4: user doesn't exists
      */
     public static function error(string $errorMessage, int $pcode, string $redirect = "")
     {

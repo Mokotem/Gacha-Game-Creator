@@ -1,4 +1,4 @@
-<?php/**   * @var Player $player   */
+<?php use GachaGameCreator\Modele\Data\Player;/**   * @var Player $player   */
 
 ?>
 

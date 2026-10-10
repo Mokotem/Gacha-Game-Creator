@@ -8,7 +8,7 @@
 
 </script>
 
-<form name="form1" method="post" action="index.php?bro=gacha&action=mygachas" onsubmit="return Check()">
+<form class="mainForm" name="form1" method="post" action="index.php?bro=gacha&action=create" onsubmit="return Check()">
     <div>
         <label for="title">gacha title: </label>
         <input required type="text" name="title" id="title"/>
@@ -19,5 +19,10 @@
         <textarea id="desc", name="desc"></textarea>
         <p class="error" id="descError"></p>
     </div>
+    <div>
+        <label for="pull">pull price: </label>
+        <input type="number" min="1" max="100" value="10" id="pull", name="pullPrice"/>
+    </div>
+    <input hidden name="idPlayer" value="34" />
     <button type="submit">Create</button>
 </form>

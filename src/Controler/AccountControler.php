@@ -7,34 +7,46 @@ use GachaGameCreator\Modele\Repositories\PlayerRepository;
 
 class AccountControler extends BaseControler
 {
+    private PlayerRepository $repo;
+
     public function __construct()
     {
         parent::__construct("Account");
+        $this->repo = new PlayerRepository();
+    }
+
+    public function defaultAction()
+    {
+        $this->signin();
     }
 
     public function createForm()
     {
         $this->showp("create.html");
     }
+
     public function create() : bool
     {
-        $player = PlayerRepository::getFromTaba($_POST);
+        $player = $this->repo->fromTable($_POST);
 
-        $state = PlayerRepository::getFromEmail($_POST["email"]);
-        $state->fetchAll();
-        if ($state->rowCount() > 0)
+        $p = $this->repo->fromEmail($_POST["email"]);
+        if (is_null($p))
         {
-            BaseControler::error("An account with the email '" . $_POST["email"] . "' already exists.",
-                3,
-                "<a href=index.php?bro=account&action=createForm><- Create account</a>");
-            return false;
+            if (PlayerRepository::insert($player))
+            {
+                $this->args["message"] = "Account created!";
+                $this->signinForm();
+                return true;
+            }
         }
-
-        if (PlayerRepository::insert($player))
+        else
         {
-            $this->args["message"] = "Account created!";
-            $this->signinForm();
-            return true;
+            BaseControler::error(
+                "An account with the email '" . $_POST["email"] . "' already exists.",
+                3,
+                "<a href=index.php?bro=account&action=createForm><- Create account</a>"
+            );
+            return false;
         }
 
         return false;

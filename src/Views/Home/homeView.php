@@ -10,7 +10,7 @@
         Gachas
     </h2>
     <div>
-        <a href="index.php?bro=gacha&action=create">Create</a>
+        <a href="index.php?bro=gacha&action=createForm">Create</a>
     </div>
     <div>
         <a href="index.php?bro=gacha&action=explore">Explore</a>

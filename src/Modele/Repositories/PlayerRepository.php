@@ -2,43 +2,44 @@
 
 namespace GachaGameCreator\Modele\Repositories;
 
+use GachaGameCreator\Modele\Repositories\BaseRepository;
 use GachaGameCreator\Controler\BaseControler;
 use GachaGameCreator\Modele\Data\Player;
 use PDOException;
 use PDOStatement;
 
-class PlayerRepository
+/**
+ * @extends BaseRepository<Player>
+ */
+class PlayerRepository extends BaseRepository
 {
-    public static function getWhere(string $attr, string $value) : PDOStatement
+    public function __construct()
     {
-        $state = Connexion::getPdo()->prepare(
-            "SELECT * FROM Player WHERE ".$attr."=:vid;");
-        $state->execute(["vid" => $value]);
-
-        return $state;
+        parent::__construct("Player");
     }
 
-    public static function getFromId(int $id) : PDOStatement
-    {
-        return PlayerRepository::getWhere("idPlayer", $id);
-    }
-
-    public static function getFromEmail(string $email) : PDOStatement
-    {
-        return PlayerRepository::getWhere("email", $email);
-    }
-
-    public static function getFromTaba(array $taba) : Player
+    public function fromTable(array $value) : Player
     {
         return new Player(
-            $taba["id"],
-            $taba["email"],
-            $taba["name"],
-            $taba["password"],
-            $taba["money"]);
+            $value["idPlayer"],
+            $value["email"],
+            $value["name"],
+            $value["password"],
+            $value["money"]
+        );
     }
 
-    public static function insert(Player $p) : bool
+    public function fromEmail(string $email) : ?Player
+    {
+        $result = $this->getWhere("email", $email);
+        if (count($result) > 0)
+        {
+            return $result[0];
+        }
+        return null;
+    }
+
+    public static function insert(Player $p): bool
     {
         $state = Connexion::getPdo()->prepare(
             "INSERT INTO Player (email, name, password, money) VALUES (:email, :name, :password, :money);"
@@ -64,7 +65,7 @@ class PlayerRepository
         return true;
     }
 
-    public static function isAdmin(Player $p) : bool
+    public static function isAdmin(Player $p): bool
     {
         if (is_null($p->isAdmin))
         {
@@ -77,5 +78,4 @@ class PlayerRepository
         return $p->isAdmin;
     }
 }
-
 ?>

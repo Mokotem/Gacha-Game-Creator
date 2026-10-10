@@ -22,9 +22,10 @@
 
         ?>
         <main>
-            <?php
-                require($bodyPath);
-            ?>
+
+        <?php
+            require($bodyPath);
+        ?>
         </main>
         <footer>
             Site de frite4656

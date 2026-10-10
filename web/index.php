@@ -4,7 +4,7 @@ require_once __DIR__ . "/../src/Lib/Psr4AutoloaderClass.php";
 
 use GachaGameCreator\Lib\Psr4AutoloaderClass;
 
-$loader = new Psr4AutoloaderClass();
+$loader = new Psr4AutoloaderClass(false);
 $loader->register();
 $loader->addNamespace("GachaGameCreator", __DIR__ . "/../src");
 
@@ -25,9 +25,10 @@ else
     $cont = "GachaGameCreator\Controler\HomeControler";
 }
 
+$main = new $cont();
+
 if (isset($_GET["action"]))
 {
-    $main = new $cont();
 
     $action = $_GET["action"];
 
@@ -45,8 +46,7 @@ if (isset($_GET["action"]))
 }
 else
 {
-    $main = new GachaGameCreator\Controler\HomeControler();
-    $main->home();
+    $main->defaultAction();
 }
 
 end:

@@ -20,6 +20,14 @@ class HomeControler extends BaseControler
     {
         $this->showp("confirmPassword.html");
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function defaultAction()
+    {
+        $this->home();
+    }
 }
 
 ?>

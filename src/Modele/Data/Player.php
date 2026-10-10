@@ -2,7 +2,6 @@
 
 namespace GachaGameCreator\Modele\Data;
 
-use BaseData;
 
 class Player extends BaseData
 {
@@ -26,6 +25,19 @@ class Player extends BaseData
         $this->password = $password;
         $this->money = is_null($money) ? 0 : $money;
         $this->isAdmin = null;
+    }
+
+    public function __toString(): string
+    {
+        return "{player $this->id, $this->name}";
+    }
+
+    public function getCredits(string $tag = "") : string
+    {
+        return "<div $tag>
+                    <p class='mini'>by</p>
+                    <a class='mini' href=index.php?bro=account&id=$this->id>$this->name</a>
+                </div>";
     }
 }
 

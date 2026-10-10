@@ -15,6 +15,7 @@ if (!isset($code) || !isset($errorMessage))
 ?>
 
 <h1>Error <?=$code?></h1>
+<div class="line"></div>
 <p class="error"><?= $errorMessage?></p>
 <br />
 <?=$redirect?>

@@ -45,6 +45,16 @@ body > div > main, body > div > secion, body > div > footer
     margin-top: 16px;
 }
 
+body > div .title
+{
+    padding: 16px;
+    background-color: white;
+    border-style: solid;
+    box-sizing: border-box;
+    margin-top: 16px;
+    border-radius: 2048px;
+}
+
 .message 
 {
     box-sizing: border-box;
@@ -58,6 +68,11 @@ body > div > main, body > div > secion, body > div > footer
     display:flex;
     justify-content:space-between;
     vertical-align:central;
+}
+
+.mini
+{
+    font-size: 14px;
 }
 
 .message > p
@@ -95,6 +110,7 @@ a
 .line
 {
     border-bottom:solid;
+    margin-bottom: 16px;
 }
 
 section
@@ -102,11 +118,15 @@ section
     margin: 16px 0px;
 }
 
+form .mainForm
+{
+    max-width: 480px;
+}
+
 form
 {
     width: 100%;
-    max-width: 480px;
-    margin: 0px auto;
+    margin: 16px auto;
 }
 
 form > div
@@ -139,4 +159,24 @@ form > div > input
     margin: 2px 0px 8px 0px;
     font-size: 14px;
     color:red;
+}
+
+.gacha
+{
+    background-color: rgb(224, 224, 224);
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0px;
+    padding: 8px;
+}
+
+.gacha > div
+{
+    display: flex;
+    justify-content: normal;
+}
+
+.gacha a, .gacha p
+{
+    margin: auto 8px;
 }

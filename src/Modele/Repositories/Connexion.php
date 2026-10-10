@@ -1,6 +1,5 @@
 <?php
 
-
 namespace GachaGameCreator\Modele\Repositories;
 
 use GachaGameCreator\Controler\BaseControler;
@@ -15,10 +14,10 @@ class Connexion
     {
         if (is_null(Connexion::$instance))
         {
-            $instance = new Connexion();
+            self::$instance = new Connexion();
         }
 
-        return $instance->pdo;
+        return self::$instance->pdo;
     }
 
     private PDO $pdo;
