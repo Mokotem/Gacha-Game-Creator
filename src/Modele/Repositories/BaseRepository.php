@@ -19,8 +19,12 @@ abstract class BaseRepository
     /** @return T  */
     public abstract function fromTable(array $value);
 
+
+    /** @param T $value */
+    public abstract function insert($value) : bool;
+
     /** @return T */
-    protected function get(int $id)
+    public function fromId(int $id)
     {
         $state = Connexion::getPdo()->prepare("SELECT * FROM " . $this->table . " WHERE id".$this->table." = :id;");
 
@@ -45,6 +49,33 @@ abstract class BaseRepository
 
         BaseControler::error("Player id '$id' not found.", "4");
         return null;
+    }
+
+    /**
+     * @param string $tableName
+     * @param BaseRepository $repo
+     * @param T $data
+     * @return array
+     */
+    public function join(BaseData $data, string $tableName, BaseRepository $repo) : array
+    {
+        try
+        {
+            $state = Connexion::getPdo()->query("SELECT * FROM $tableName WHERE id$this->table = $data->id");
+        }
+        catch (PDOException $ex)
+        {
+            BaseControler::errorFromPDO($ex);
+            return [];
+        }
+
+        $result = [];
+        foreach ($state as $value)
+        {
+            $result[] = $repo->fromTable($value);
+        }
+
+        return $result;
     }
 
     public function getAll(): array

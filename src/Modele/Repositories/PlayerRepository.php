@@ -39,7 +39,8 @@ class PlayerRepository extends BaseRepository
         return null;
     }
 
-    public static function insert(Player $p): bool
+    /** @param Player $p */
+    public function insert($p): bool
     {
         $state = Connexion::getPdo()->prepare(
             "INSERT INTO Player (email, name, password, money) VALUES (:email, :name, :password, :money);"

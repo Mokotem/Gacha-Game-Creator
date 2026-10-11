@@ -75,7 +75,7 @@ body > div .title
     font-size: 14px;
 }
 
-.message > p
+.centerVert
 {
     margin: auto 0px;
 }
@@ -102,7 +102,7 @@ h2
     font-size: 32px;
 }
 
-a
+a, .fat
 {
     font-size: 24px;
 }
@@ -110,7 +110,18 @@ a
 .line
 {
     border-bottom:solid;
-    margin-bottom: 16px;
+    margin: 16px 0px;
+}
+
+.flat
+{
+    display: flex;
+    justify-content: left;
+}
+
+.flat > div
+{
+    margin: auto 8px;
 }
 
 section
@@ -143,7 +154,7 @@ form textarea
     resize:vertical;
 }
 
-input, button, textarea
+form > div > input, form > div > button, form > div > textarea
 {
     padding: 8px;
 }
@@ -161,7 +172,7 @@ form > div > input
     color:red;
 }
 
-.gacha
+.blockline
 {
     background-color: rgb(224, 224, 224);
     display: flex;
@@ -170,13 +181,13 @@ form > div > input
     padding: 8px;
 }
 
-.gacha > div
+.blockline > div
 {
     display: flex;
     justify-content: normal;
 }
 
-.gacha a, .gacha p
+.blockline a, .blockline p, .flat a, .flat p
 {
     margin: auto 8px;
 }

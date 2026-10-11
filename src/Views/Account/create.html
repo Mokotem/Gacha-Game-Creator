@@ -5,6 +5,7 @@
     Create an account!
 </h1>
 
+<script src="scripts/lib.js"></script>
 <script src="scripts/checkCreationForm.js"></script>
 
 <form class="mainForm" name="form1" method="post" action="index.php?bro=account&action=create" onsubmit="return Check()">
@@ -17,19 +18,19 @@
     <div>
         <label for="uname">User name: </label>
         <input type="text" id="uname" name="name" maxlength="48" required />
-        <p class="error" id="nameError"></p>
+        <p class="error" id="unameError"></p>
     </div>
 
     <div>
         <label for="pswd">Password: </label>
         <input type="password" name="password" minlength="4" maxlength="16" id="pswd" required/>
-        <p class="error" id="passwordError"></p>
+        <p class="error" id="pswdError"></p>
     </div>
 
     <div hidden id="cpasswordBox">
         <label for="pswd">Confirm password: </label>
         <input type="password" name="cPassword" minlength="4" maxlength="16"  id="cpswd"/>
-        <p class="error" id="conf"></p>
+        <p class="error" id="cpswdError"></p>
     </div>
 
     <div>
