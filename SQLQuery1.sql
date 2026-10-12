@@ -1,0 +1,2 @@
+﻿DROP TABLE Source;
+DROP TABLE Item;
