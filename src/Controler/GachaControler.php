@@ -47,17 +47,58 @@ class GachaControler extends BaseControler
         $this->showp("frontPage.php", ["gacha" => $ga, "items" => $items]);
     }
 
-    public function addItemForm()
+    public function addItem()
     {
         $ga = $this->gacha->fromId($_GET['id']);
         $sources = $this->source->getAll();
-        $this->showp("addItem.php", ["gacha" => $ga, "sources" => $sources]);
+        $this->showp("addItem.php", [
+            "gacha" => $ga,
+            "sources" => $sources,
+            "confirm" => false,
+            "errorMessage" => ""
+            ]);
     }
 
-    public function addItem()
+    public function confirmItem()
+    {
+        $ga = $this->gacha->fromId($_POST['idGacha']);
+        $sources = $this->source->getAll();
+
+        $it = $this->item->fromTable($_POST);
+        if ($it->source->fillInfos($it))
+        {
+            $this->showp(
+                "addItem.php",
+                [
+                    "gacha" => $ga,
+                    "sources" => $sources,
+                    "confirm" => true,
+                    "item" => $it,
+                    "errorMessage" => ""
+                ]
+            );
+        }
+        else
+        {
+            $this->showp(
+                "addItem.php",
+                [
+                    "gacha" => $ga,
+                    "sources" => $sources,
+                    "confirm" => false,
+                    "item" => $it,
+                    "errorMessage" => "Error loading id '".$it->imageId."'."
+                ]
+            );
+        }
+
+    }
+
+    public function uploadItem()
     {
         $it = $this->item->fromTable($_POST);
         $it->source->fillInfos($it);
+
         if ($this->item->insert($it))
         {
             $this->select($_POST["idGacha"]);

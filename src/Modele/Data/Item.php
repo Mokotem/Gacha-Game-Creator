@@ -10,7 +10,7 @@ class Item extends BaseData
     public Gacha $gacha;
     public string $urlFull;
     public string $urlSmall;
-    public string $urlSource;
+    public ?string $urlSource;
     public string $character;
     public Source $source;
 
@@ -22,7 +22,7 @@ class Item extends BaseData
         Gacha $gacha,
         string $urlFull,
         string $urlSmall,
-        string $urlSource,
+        ?string $urlSource,
         string $character,
         Source $source
     )
@@ -41,11 +41,13 @@ class Item extends BaseData
 
     public function getPreviewInGacha(string $tag = "") : string
     {
-        return "<div class='item' $tag>
-        <p>$this->name</p>
-        <a href='index.php?bro=gacha&action=item&id=$this->id'>
+        return "
+        <a class='item' href='index.php?bro=gacha&action=item&id=$this->id'>
+        <div $tag>
         <img src='$this->urlSmall'/>
+        </div>
+        <p>$this->name</p>
         </a>
-        </div>";
+        ";
     }
 }

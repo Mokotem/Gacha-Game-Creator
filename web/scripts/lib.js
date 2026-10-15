@@ -1,95 +1,109 @@
-function isAlpha(code)
+
+
+function estAlpha(code)
 {
-    return (code > 64 && code < 91) || (code > 96 && code < 123)
-}
-function isAlphaOrSpace(code)
-{
-    return isAlpha(code) || code === " ".charCodeAt(0)
+    // table UTF-16
+    return (code > 64 && code < 91)
+        || (code > 96 && code < 123);
 }
 
-function isAlphaNumericOrSpace(str)
+function estEspace(code)
 {
-    var code, i;
+    return code === 32;
+}
 
-    for (i = 1; i < str.length; i++)
+function estAlphaouEspace(code)
+{
+    // table UTF-16
+    return estAlpha(code)
+        || estEspace(code);
+}
+
+function estAlphaouTiret(code)
+{
+    return estAlpha(code)
+        || estTiret(code);
+}
+function estAlphaouTiretouEspace(code)
+{
+    return estAlpha(code)
+        || estTiret(code)
+        || estEspace(code);
+}
+
+function estTiret(code)
+{
+    return code === 45;
+}
+
+function estTitre(str, id)
+{
+    dernierEstTiret = false;
+
+    for (i = 0; i < str.length; i++)
     {
-        code = str.charCodeAt(i);
-        if (!(code > 47 && code < 58) && // numeric (0-9)
-            !isAlphaOrSpace(code))
-        { // lower alpha (a-z)
+        if (!estAlphaouTiretouEspace(str.charCodeAt(i)))
+        {
+            errorAt(id, "les caractères spéciaux ne sont pas autorisés.");
+            return false;
+        }
+
+        if (estTiret(str.charCodeAt(i)))
+        {
+            if (dernierEstTiret)
+            {
+                errorAt(id, "les doubles tirets ne sont pas autorisés.");
+                return false;
+            }
+
+            dernierEstTiret = true;
+        }
+        else
+        {
+            dernierEstTiret = false;
+        }
+    }
+
+    releaseError(id);
+    return true;
+}
+
+function estNom(str, id)
+{
+    if (!estTitre(str, id))
+    {
+        return false;
+    }
+
+    for (i = 0; i < str.length; i++)
+    {
+        if (estEspace(str.charCodeAt(i)))
+        {
+            errorAt(id, "les espaces ne sont pas autorisés.");
             return false;
         }
     }
+
+    releaseError(id);
     return true;
 }
 
-function isAlphaNumeric(str)
+function checkEstNom(id)
 {
-    var code, i;
-
-    for (i = 1; i < str.length; i++)
-    {
-        code = str.charCodeAt(i);
-        if (!(code > 47 && code < 58) && // numeric (0-9)
-            !isAlpha(code))
-        { // lower alpha (a-z)
-            return false;
-        }
-    }
-    return true;
+    return estNom(document.forms["form1"][id].value, id);
 }
 
-function checkIdIsName(id)
+function checkEstTitle(id)
 {
-    if (!isFirstAlpha(document.forms["form1"][id].value))
-    {
-        errorAt(id + "Error", "first character must be a letter");
-        return false;
-    }
-
-    if (!isAlphaNumeric(document.forms["form1"][id].value))
-    {
-        errorAt(id + "Error", "special characters and spaces are not allowed");
-        return false;
-    }
+    return estTitre(document.forms["form1"][id].value, id);
 }
 
-function checkIdIsTitle(id)
-{
-    if (!isFirstAlpha(document.forms["form1"][id].value))
-    {
-        errorAt(id + "Error", "first character must be a letter");
-        return false;
-    }
-
-    if (!isAlphaNumericOrSpace(document.forms["form1"][id].value))
-    {
-        errorAt(id + "Error", "special characters are not allowed");
-        return false;
-    }
-
-    errorAt(id + "Error", "");
-    return true;
-}
-
-function checkIsAlphaNum(id)
-{
-    if (!isAlphaNumeric(document.forms["form1"][id].value))
-    {
-        errorAt(id + "Error", "special characters are not allowed");
-        return false;
-    }
-
-    errorAt(id + "Error", "");
-    return true;
-}
-
-function isFirstAlpha(str)
-{
-    return isAlpha(str.charCodeAt(0));
-}
 
 function errorAt(id, message)
 {
-    document.getElementById(id).innerHTML = message;
+    document.getElementById(id + "Error").innerHTML = message;
+}
+function releaseError(id)
+{
+    document.getElementById(id + "Error").innerHTML = "";
 }

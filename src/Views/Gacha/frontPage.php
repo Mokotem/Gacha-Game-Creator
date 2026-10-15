@@ -16,7 +16,7 @@ Use GachaGameCreator\Modele\Data\Item;
 
     <h2>Items</h2>
 
-    <div style="display: flex">
+    <div>
         <?php
         foreach ($items as $it)
         {
@@ -24,7 +24,7 @@ Use GachaGameCreator\Modele\Data\Item;
         }
         ?>
     </div>
-    <a href="index.php?bro=gacha&action=addItemForm&id=<?=$gacha->id?>">+ Add item</a>
+    <a href="index.php?bro=gacha&action=addItem&id=<?=$gacha->id?>">+ Add item</a>
 
 </div>
 
