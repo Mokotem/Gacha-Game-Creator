@@ -19,7 +19,7 @@ foreach ($values as $gacha)
     echo "<div class='blockline'>";
 
     echo "<div>";
-    echo "<a href='index.php?bro=gacha&action=select&id=".$gacha->id."'>".$gacha->title."</a>";
+    echo "<a href='index.php?bro=gacha&action=front&id=".$gacha->id."'>".$gacha->title."</a>";
     echo "<p class='money'>".$gacha->pullPrice."po</p>";
     echo "</div>";
 

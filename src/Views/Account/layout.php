@@ -10,6 +10,10 @@
     <title>GGC > Account</title>
 </head>
 <body>
+<?php
+
+require(__DIR__ . "/../nav.html");
+?>
     <div>
         <?php
 

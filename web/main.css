@@ -102,7 +102,7 @@ h2
     font-size: 32px;
 }
 
-a, .fat
+.fat, nav a
 {
     font-size: 24px;
 }
@@ -198,7 +198,7 @@ form > div > input, form .big
 
 a.item
 {
-    display: inline-block;
+    display:inline-block;
     background-color: rgb(224, 224, 224);
     margin: 8px;
     padding: 8px;

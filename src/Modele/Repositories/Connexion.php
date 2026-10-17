@@ -25,7 +25,7 @@ class Connexion
 
     private function __construct()
     {
-        $config = parse_ini_file(__DIR__ . "/config.ini", false, INI_SCANNER_RAW);
+        $config = parse_ini_file(__DIR__ . "/../../config.ini", false, INI_SCANNER_RAW);
 
         try
         {

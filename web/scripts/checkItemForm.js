@@ -16,6 +16,5 @@ function Check()
 function Cancel()
 {
     history.back();
-    document.getElementById("subid").hidden = false;
-    document.getElementById("loadid").hidden = true;
+    reload();
 }

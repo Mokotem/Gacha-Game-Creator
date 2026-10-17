@@ -9,6 +9,6 @@
     <WebRoot />
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\Controler\" />
+    <Folder Include="src\Views\Item\" />
   </ItemGroup>
 </Project>

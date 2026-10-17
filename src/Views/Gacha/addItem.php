@@ -1,8 +1,16 @@
-<?php use GachaGameCreator\Modele\Data\Item;/**   * @var array<\GachaGameCreator\Modele\Data\Source> $sources;   * @var \GachaGameCreator\Modele\Data\Gacha $gacha;   * @var Item $item;   * @var bool $confirm;   * @var string $errorMessage;   */
+<?php use GachaGameCreator\Modele\Data\Item;
+
+/**
+   * @var array<\GachaGameCreator\Modele\Data\Source> $sources;
+   * @var \GachaGameCreator\Modele\Data\Gacha $gacha;
+   * @var Item $item;
+   * @var bool $confirm;
+   * @var string $errorMessage;
+   */
 ?>
 
 <p class="fat">Add an item to
-    <a href="index.php?bro=gacha&action=select&id=<?=$gacha->id?>">
+    <a href="index.php?bro=gacha&action=front&id=<?=$gacha->id?>">
         <?=$gacha->title?></a></p>
 
 <div class="line"></div>
@@ -54,15 +62,17 @@
         <?= $errorMessage?>
     </p>
 
-    <?php
-    if ($confirm)
-    {
-        require(__DIR__ . "/confirmItem.php");
-    }
-    else
-    {
-        echo "<button id='subid' class='yellow' type='submit'>Load</button>";
-        echo "<p id='loadid' hidden>loading ...</p>";
-    }
-    ?>
+    <div>
+        <?php
+        if ($confirm)
+        {
+            require(__DIR__ . "/confirmItem.php");
+        }
+        else
+        {
+            echo "<button id='subid' class='yellow' type='submit'>Load</button>";
+            echo "<p id='loadid' hidden>loading ...</p>";
+        }
+        ?>
+    </div>
 </form>

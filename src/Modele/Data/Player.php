@@ -11,6 +11,12 @@ class Player extends BaseData
     public string $password;
     public ?bool $isAdmin;
 
+    /** @var array<HaveItem> */
+    public array $items;
+
+    /**
+     * @param array<HaveItem> $items
+     */
     public function __construct(
         ?int $id,
         string $email,
@@ -25,6 +31,7 @@ class Player extends BaseData
         $this->password = $password;
         $this->money = is_null($money) ? 0 : $money;
         $this->isAdmin = null;
+        $this->items = [];
     }
 
     public function __toString(): string

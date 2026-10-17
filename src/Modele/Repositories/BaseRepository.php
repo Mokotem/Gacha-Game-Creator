@@ -10,7 +10,7 @@ use PDOException;
 /** @template T of BaseData */
 abstract class BaseRepository
 {
-    private string $table;
+    protected string $table;
     protected function __construct(string $tableName)
     {
         $this->table = $tableName;
@@ -42,13 +42,28 @@ abstract class BaseRepository
             return null;
         }
 
-        if ($state->columnCount() > 0)
+        $line = $state->fetch();
+        if ($line)
         {
-            return $this->fromTable($state->fetch());
+            return $this->fromTable($line);
         }
 
         BaseControler::error("Player id '$id' not found.", "4");
         return null;
+    }
+
+    /**
+     * @return array<T>
+     */
+    final protected function fromState(\PDOStatement $state) : array
+    {
+        $result = [];
+        foreach ($state as $line)
+        {
+            $result[] = $this->fromTable($line);
+        }
+
+        return $result;
     }
 
     /**
@@ -69,13 +84,7 @@ abstract class BaseRepository
             return [];
         }
 
-        $result = [];
-        foreach ($state as $value)
-        {
-            $result[] = $repo->fromTable($value);
-        }
-
-        return $result;
+        return $this->fromState($state);
     }
 
     public function getAll(): array
@@ -102,18 +111,14 @@ abstract class BaseRepository
         return $result;
     }
 
+    /**
+     * @return array<T>
+     */
     public function getWhere(string $attr, string $value): array
     {
-        $state = Connexion::getPdo()->prepare("SELECT * FROM " . $this->table . " WHERE :att = :v;");
-
         try
         {
-            $state->execute(
-                [
-                    "att" => $attr,
-                    "v" => $value
-                ]
-            );
+            $state = Connexion::getPdo()->query("SELECT * FROM $this->table WHERE $attr = '$value';");
         }
         catch (PDOException $error)
         {
@@ -121,7 +126,7 @@ abstract class BaseRepository
             return [];
         }
 
-        return $state->fetchAll();
+        return $this->fromState($state);
     }
 
     public function delete(string $id): bool

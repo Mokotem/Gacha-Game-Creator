@@ -11,20 +11,20 @@
 
     <div>
         <div>
-            <input id="emailRad" type="radio" name="method" checked onclick="onMailClick()" />
+            <input id="emailRad" type="radio" name="method" value="email" checked onclick="onMailClick()" />
             <label for="emailRad">email</label>
-            <input id="idRad" type="radio" name="method" onclick="onIdClick()"/>
+            <input id="idRad" type="radio" name="method" value="idPlayer" onclick="onIdClick()"/>
             <label for="idRad">account id</label>
         </div>
 
-        <input type="email" id="email" name="login" maxlength="128" required/>
+        <input type="email" id="email" name="email" maxlength="128" required/>
 
-        <input type="number" id="idd" name="login" hidden/>
+        <input type="number" id="idd" name="idPlayer" hidden/>
     </div>
 
     <div>
         <label for="pswd">Password: </label>
-        <input type="password" name="userPassword" minlength="4" maxlength="16"  id="pswd" required/>
+        <input type="password" name="password" minlength="4" maxlength="16"  id="pswd" required/>
         <p class="error" id="passwordError"></p>
     </div>
 

@@ -3,6 +3,7 @@
 namespace GachaGameCreator\Controler;
 
 use GachaGameCreator\Controler\BaseControler;
+use GachaGameCreator\Modele\Repositories\EffectRepository;
 use GachaGameCreator\Modele\Repositories\GachaRepository;
 use GachaGameCreator\Modele\Repositories\ItemRepository;
 use GachaGameCreator\Modele\Repositories\PlayerRepository;
@@ -15,6 +16,7 @@ class GachaControler extends BaseControler
     private PlayerRepository $player;
     private ItemRepository $item;
     private SourceRepository $source;
+    private EffectRepository $effect;
 
     public function __construct()
     {
@@ -22,7 +24,9 @@ class GachaControler extends BaseControler
         $this->player = new PlayerRepository();
         $this->gacha = new GachaRepository($this->player);
         $this->source = new SourceRepository();
-        $this->item = new ItemRepository($this->gacha, $this->source);
+        $this->effect = new EffectRepository();
+        $this->item = new ItemRepository($this->gacha, $this->source, $this->effect);
+
     }
 
     public function defaultAction()
@@ -40,11 +44,21 @@ class GachaControler extends BaseControler
         $this->showp("explore.php", ["values" => $this->gacha->getAll()]);
     }
 
-    public function select(int $id = -1)
+    public function front(int $id = -1)
     {
         $ga = $this->gacha->fromId($id < 0 ? $_GET['id'] : $id);
         $items = $this->gacha->join($ga, "Item", $this->item);
         $this->showp("frontPage.php", ["gacha" => $ga, "items" => $items]);
+    }
+
+    public function allItems()
+    {
+        $ga = $this->gacha->fromId($_GET['id']);
+        $items = $this->gacha->join($ga, "Item", $this->item);
+        $this->showp(
+            "allItems.php",
+            ["gacha" => $ga, "items" => $items]
+        );
     }
 
     public function addItem()

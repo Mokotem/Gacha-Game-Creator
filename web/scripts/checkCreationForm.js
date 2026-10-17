@@ -2,21 +2,9 @@
 
 function Check()
 {
-    errored = false;
-
-    if (!checkIdIsName("uname"))
+    if (checkEstNom("uname"))
     {
-        errored = true;
-    }
-
-    if (!checkIsAlphaNum("pswd"))
-    {
-        errored = true;
-    }
-
-    if (!errored)
-    {
-        valid = document.forms["form1"]["cpswd"].value === document.forms["form1"]["pswd"].value;
+        valid = document.forms["form1"]["password"].value === document.forms["form1"]["cPassword"].value;
 
         if (!valid)
         {
@@ -24,11 +12,11 @@ function Check()
             if (box.hidden)
             {
                 box.hidden = false;
-                errorAt("conf", "");
+                errorAt("cpswd", "");
             }
             else
             {
-                errorAt("conf", "nope.");
+                errorAt("cpswd", "nope.");
             }
 
             return false;
@@ -38,12 +26,7 @@ function Check()
     }
 
     document.getElementById("cpasswordBox").hidden = true;
-    document.getElementById("cpswd").value = "";
+    releaseError("cpswd");
 
     return false;
-}
-
-function errorAt(id, message)
-{
-    document.getElementById(id).innerHTML = message;
 }

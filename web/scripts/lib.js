@@ -4,7 +4,8 @@ function estAlpha(code)
 {
     // table UTF-16
     return (code > 64 && code < 91)
-        || (code > 96 && code < 123);
+        || (code > 96 && code < 123)
+        || (code  > 47 && code < 58);
 }
 
 function estEspace(code)
@@ -42,25 +43,10 @@ function estTitre(str, id)
 
     for (i = 0; i < str.length; i++)
     {
-        if (!estAlphaouTiretouEspace(str.charCodeAt(i)))
+        if (!estAlphaouEspace(str.charCodeAt(i)))
         {
             errorAt(id, "les caractères spéciaux ne sont pas autorisés.");
             return false;
-        }
-
-        if (estTiret(str.charCodeAt(i)))
-        {
-            if (dernierEstTiret)
-            {
-                errorAt(id, "les doubles tirets ne sont pas autorisés.");
-                return false;
-            }
-
-            dernierEstTiret = true;
-        }
-        else
-        {
-            dernierEstTiret = false;
         }
     }
 

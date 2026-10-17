@@ -2,6 +2,8 @@
 
 namespace GachaGameCreator\Modele\Repositories;
 
+use GachaGameCreator\Modele\Data\Effect;
+use GachaGameCreator\Modele\Data\HaveItem;
 use GachaGameCreator\Modele\Repositories\BaseRepository;
 use GachaGameCreator\Controler\BaseControler;
 use GachaGameCreator\Modele\Data\Player;
@@ -53,7 +55,7 @@ class PlayerRepository extends BaseRepository
                     "email" => $p->email,
                     "name" => $p->name,
                     "password" => $p->password,
-                    "money" => 0
+                    "money" => 1000
                 ]
             );
         }
