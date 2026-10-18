@@ -1,4 +1,9 @@
-<?php use GachaGameCreator\Modele\Data\Gacha;/**   * @var string $bodyPath   * @var Gacha $gacha   * */
+<?php use GachaGameCreator\Modele\Data\Gacha;
+
+/**
+   * @var string $bodyPath
+   * @var Gacha $gacha
+   * */
 ?>
 
 <!DOCTYPE html>
@@ -25,14 +30,6 @@
         <?php
             require($bodyPath);
         ?>
-
-        <div class="line"></div>
-
-        <div class="flat mini">
-        <p>Gacha created</p>
-        <?= $gacha->owner->getPreview() ?>
-
-        </div>
 
         </main>
         <footer>

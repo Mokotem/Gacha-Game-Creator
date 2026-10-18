@@ -172,16 +172,23 @@ form > div > input, form .big
     color:red;
 }
 
-.blockline
+.valid
 {
-    background-color: rgb(224, 224, 224);
-    padding: 8px;
+    margin: 2px 0px 8px 0px;
+    font-size: 14px;
+    color:rgb(0, 255, 0);
+}
+
+.spread
+{
+    display: flex;
+    justify-content: space-between;
 }
 
 .blockline
 {
-    display: flex;
-    justify-content: space-between;
+    background-color: rgb(224, 224, 224);
+    padding: 8px;
     margin: 8px 0px;
 }
 

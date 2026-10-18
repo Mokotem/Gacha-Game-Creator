@@ -14,6 +14,13 @@ class Session
         if (session_start() === false) {
             throw new \Exception("La session n'a pas réussi à démarrer.");
         }
+
+        if (!isset($_SESSION["lastConnexion"]) || time() - $_SESSION["lastConnexion"] > 86400)
+        {
+            session_unset();
+        }
+
+        $_SESSION["lastConnexion"] = time();
     }
 
     public function active() : bool
@@ -37,9 +44,9 @@ class Session
     {
         return $_SESSION["idPlayer"] ?? -1;
     }
-    public function setId(int $value) : int
+    public function setId(int $value)
     {
-        return $_SESSION["idPlayer"] == $value;
+        $_SESSION["idPlayer"] = $value;
     }
 
     public function write(string $nom, mixed $valeur) : void

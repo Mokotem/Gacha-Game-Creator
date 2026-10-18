@@ -11,9 +11,12 @@ use PDOException;
 abstract class BaseRepository
 {
     protected string $table;
+    protected string $clep;
+
     protected function __construct(string $tableName)
     {
         $this->table = $tableName;
+        $this->clep = "id".$tableName;
     }
 
     /** @return T  */
@@ -67,16 +70,13 @@ abstract class BaseRepository
     }
 
     /**
-     * @param string $tableName
-     * @param BaseRepository $repo
      * @param T $data
-     * @return array
      */
-    public function join(BaseData $data, string $tableName, BaseRepository $repo) : array
+    public function join(BaseData $data, BaseRepository $repo) : array
     {
         try
         {
-            $state = Connexion::getPdo()->query("SELECT * FROM $tableName WHERE id$this->table = $data->id");
+            $state = Connexion::getPdo()->query("SELECT * FROM $this->table WHERE $repo->clep = $data->id");
         }
         catch (PDOException $ex)
         {
@@ -131,13 +131,12 @@ abstract class BaseRepository
 
     public function delete(string $id): bool
     {
-        $state = Connexion::getPdo()->prepare("DELETE FROM " . $this->table . " WHERE id:table = ':id';");
+        $state = Connexion::getPdo()->prepare("DELETE FROM " . $this->table . " WHERE $this->clep = ':id';");
 
         try
         {
             $state->execute(
                 [
-                    "table" => $this->table,
                     "id" => $id
                 ]
             );
@@ -153,13 +152,12 @@ abstract class BaseRepository
 
     public function edit(int $id, string $attr, string $value): bool
     {
-        $state = Connexion::getPdo()->prepare("UPDATE " . $this->table . " SET :att = :value WHERE id:table = :id;");
+        $state = Connexion::getPdo()->prepare("UPDATE " . $this->table . " SET :att = :value WHERE $this->clep = :id;");
 
         try
         {
             $state->execute(
                 [
-                    "table" => $this->table,
                     "id" => $id,
                     "att" => $attr,
                     "value" => $value

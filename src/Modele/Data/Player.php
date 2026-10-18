@@ -39,7 +39,7 @@ class Player extends BaseData
         return "{player $this->id, $this->name}";
     }
 
-    public function getPreview(string $tag = "") : string
+    public function credits(string $tag = "") : string
     {
         return "<div $tag class='flat'>
                     <p class='mini'>by</p>

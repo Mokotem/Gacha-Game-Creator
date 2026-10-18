@@ -3,6 +3,7 @@
 namespace GachaGameCreator\Controler;
 
 use GachaGameCreator\Controler\BaseControler;
+use GachaGameCreator\Modele\Repositories\Connexion;
 use GachaGameCreator\Modele\Repositories\EffectRepository;
 use GachaGameCreator\Modele\Repositories\GachaRepository;
 use GachaGameCreator\Modele\Repositories\ItemRepository;
@@ -31,17 +32,22 @@ class GachaControler extends BaseControler
 
     public function defaultAction()
     {
-        $this->explore();
+        if (isset($_GET["id"]))
+        {
+            $this->front($_GET["id"]);
+        }
+        else
+        {
+            BaseControler::call("home", "gachas");
+        }
     }
 
-    public function createForm()
+    public function create()
     {
-        $this->showp("create.html");
-    }
-
-    public function explore()
-    {
-        $this->showp("explore.php", ["values" => $this->gacha->getAll()]);
+        if ($this->checkLogedin())
+        {
+            $this->showp("create.html");
+        }
     }
 
     public function front(int $id = -1)
@@ -115,16 +121,17 @@ class GachaControler extends BaseControler
 
         if ($this->item->insert($it))
         {
-            $this->select($_POST["idGacha"]);
+            $this->front($_POST["idGacha"]);
         }
     }
 
-    public function create()
+    public function uploadGacha()
     {
+        $_POST["idPlayer"] = Session::get()->id();
         $ga = $this->gacha->fromTable($_POST);
         if ($this->gacha->insert($ga))
         {
-            $this->explore();
+            $this->front(Connexion::getPdo()->lastInsertId());
         }
     }
 

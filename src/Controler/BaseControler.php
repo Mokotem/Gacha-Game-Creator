@@ -3,11 +3,53 @@
 namespace GachaGameCreator\Controler;
 
 use GachaGameCreator\Modele\Repositories\Connexion;
+use GachaGameCreator\Modele\Session;
 use PDOException;
 use PDOStatement;
 
 abstract class BaseControler
 {
+    public static function call(?string $bro, ?string $action = null) : bool
+    {
+        if (!is_null($bro))
+        {
+            $cont = "GachaGameCreator\\Controler\\". ucfirst($bro)."Controler";
+
+            if (!class_exists($cont))
+            {
+                BaseControler::error("Controler '" . $cont . "' does not exists.", 2);
+                return false;
+            }
+        }
+        else
+        {
+            $cont = "GachaGameCreator\Controler\HomeControler";
+        }
+
+        $main = new $cont();
+
+        if (!is_null($action))
+        {
+            $actionList = get_class_methods($main);
+
+            if (in_array($action, $actionList))
+            {
+                $main->$action();
+            }
+            else
+            {
+                BaseControler::error("Action '$action' is not implemented in '$cont'.", 1);
+                return false;
+            }
+        }
+        else
+        {
+            $main->defaultAction();
+        }
+        
+        return true;
+    }
+
     private string $directory;
     protected array $args;
 
@@ -26,6 +68,19 @@ abstract class BaseControler
         $bodyPath = __DIR__ . "/../Views/" . $this->directory . "/$page";
         require(__DIR__ . "/../Views/" . $this->directory . "/layout.php");
         $this->args = [];
+    }
+
+    protected function checkLogedin() : bool
+    {
+        if (Session::get()->active())
+        {
+            return true;
+        }
+        else
+        {
+            $this->showp("../Account/signin.html");
+            return false;
+        }
     }
 
     /**

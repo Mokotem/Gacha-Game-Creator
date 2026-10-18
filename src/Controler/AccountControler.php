@@ -5,6 +5,7 @@ namespace GachaGameCreator\Controler;
 use GachaGameCreator\lib\Password;
 use GachaGameCreator\Modele\Data\Player;
 use GachaGameCreator\Modele\Repositories\Connexion;
+use GachaGameCreator\Modele\Repositories\GachaRepository;
 use GachaGameCreator\Modele\Repositories\PlayerRepository;
 use GachaGameCreator\Modele\Session;
 use http\Exception\BadMethodCallException;
@@ -12,16 +13,18 @@ use http\Exception\BadMethodCallException;
 class AccountControler extends BaseControler
 {
     private PlayerRepository $player;
+    private GachaRepository $gacha;
 
     public function __construct()
     {
         parent::__construct("Account");
         $this->player = new PlayerRepository();
+        $this->gacha = new GachaRepository($this->player);
     }
 
     public function defaultAction()
     {
-        $this->signin();
+        $this->profile($_GET["id"] ?? -1);
     }
 
     public function createForm()
@@ -100,18 +103,41 @@ class AccountControler extends BaseControler
         }
     }
 
-    public function profile()
+    public function profile(int $id = -1)
     {
-        if (Session::get()->active())
+        if ($id < 0)
         {
-            $player = $this->player->fromId(Session::get()->id());
-            $this->showp("profile.php", ["player" => $player]);
+            if ($this->checkLogedin())
+            {
+                $id = Session::get()->id();
+            }
+            else return;
         }
-        else
+
+        $p = $this->player->fromId($id);
+        if (!is_null($p))
         {
-            $this->signinForm();
+            $this->showp("profile.php", ["player" => $p]);
+        }
+    }
+
+    public function gachas(int $id = -1)
+    {
+        if ($id < 0)
+        {
+            if ($this->checkLogedin())
+            {
+                $id = Session::get()->id();
+            }
+            else return;
+        }
+
+        $p = $this->player->fromId($id);
+        $gachas = $this->gacha->join($p, $this->player);
+
+        if (!is_null($p))
+        {
+            $this->showp("gachas.php", ["player" => $p, "gachas" => $gachas]);
         }
     }
 }
-
-?>

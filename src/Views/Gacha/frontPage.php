@@ -1,6 +1,7 @@
 <?php
 Use GachaGameCreator\Modele\Data\Gacha;
 Use GachaGameCreator\Modele\Data\Item;
+Use GachaGameCreator\Modele\Session;
 /**
  * @var Gacha $gacha
  * @var array<Item> $items
@@ -10,7 +11,26 @@ Use GachaGameCreator\Modele\Data\Item;
 ?>
 
 
-<p class="mini">#<?=$gacha->id?></p>
+<div class="spread">
+    <p class="mini">#<?=$gacha->id?></p>
+    <?php
+    if (Session::get()->active())
+    {
+        if ($gacha->owner->id == Session::get()->id())
+        {
+            if ($gacha->visibility > 0)
+            {
+                echo "<p class='valid'>public</p>";
+            }
+            else
+            {
+                echo "<p class='error'>private</p>";
+            }
+        }
+    }
+    ?>
+</div>
+
 <h1><?=$gacha->title?></h1>
 
 <div class="line"></div>
@@ -59,5 +79,9 @@ Use GachaGameCreator\Modele\Data\Item;
         </button>
         </div>
     </form>
+
+    <div class="line"></div>
+
+    <?php include __DIR__."/credits.php";?>
 
 </div>
