@@ -13,7 +13,7 @@
         <a href="index.php?bro=gacha&action=createForm">Create</a>
     </div>
     <div class="fat">
-        <a href="index.php?bro=gacha&action=explore">Explore</a>
+        <a href="index.php?bro=home&action=explore">Explore</a>
     </div>
 </section>
 

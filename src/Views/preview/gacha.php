@@ -1,6 +1,7 @@
 <?php
 
 Use GachaGameCreator\Modele\Data\Gacha;
+Use GachaGameCreator\Modele\Data\Item;
 
 /**
  * @var Gacha $gacha
@@ -11,7 +12,7 @@ Use GachaGameCreator\Modele\Data\Gacha;
 
 <div class="box">
     <div class="flat">
-        <a href="index.php?bro=gacha&action=front&id="><?=$gacha->title?></a>
+        <a href="index.php?bro=gacha&action=front&id=<?=$gacha->id?>"><?=$gacha->title?></a>
         <?php
         if ($credits)
         {
@@ -24,7 +25,12 @@ Use GachaGameCreator\Modele\Data\Gacha;
             : ""
         ?>
     </div>
-    <div>
-
+    <div class="horizontalScroll">
+        <?php
+        foreach ($gacha->items as $i)
+        {
+            echo $i->preview();
+        }
+        ?>
     </div>
 </div>

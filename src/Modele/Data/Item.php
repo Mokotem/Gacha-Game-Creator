@@ -39,14 +39,14 @@ class Item extends BaseData
         $this->source = $source;
     }
 
-    public function getPreviewInGacha(string $tag = "") : string
+    public function preview(string $tag = "") : string
     {
         return "
         <a class='item' href='index.php?bro=gacha&action=item&id=$this->id'>
-        <div $tag>
-        <img src='$this->urlSmall'/>
-        </div>
-        <p>$this->name</p>
+            <div $tag>
+            <img src='$this->urlSmall'/>
+            </div>
+            <p>$this->name</p>
         </a>
         ";
     }

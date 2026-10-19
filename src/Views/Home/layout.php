@@ -8,23 +8,26 @@
     <title>GGC > Home</title>
 </head>
 <body>
+
     <?php
 
     require(__DIR__ . "/../nav.html");
     ?>
     <div>
-        <?php
-
-        if (strlen($message) > 1)
-        {
-            require(__DIR__ . "/../displayMessage.php");
-        }
-
-        ?>
         <main>
             <?php
-                require($bodyPath);
+
+            if (strlen($message) > 1)
+            {
+                require(__DIR__ . "/../displayMessage.php");
+            }
+
             ?>
+            <div>
+                <?php
+                    require($bodyPath);
+                ?>
+            </div>
         </main>
         <footer>
             Site de frite4656

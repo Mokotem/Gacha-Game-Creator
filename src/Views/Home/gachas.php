@@ -11,23 +11,18 @@
 
 <?php
 
-/** @var array $values */
-/** @var \GachaGameCreator\Modele\Data\Gacha $gacha */
+Use GachaGameCreator\Modele\Data\Gacha;
+Use GachaGameCreator\Modele\Data\Item;
 
-foreach ($values as $gacha)
+/**
+ * @var array<Gacha> $gachas;
+ */
+
+$credits = true;
+
+foreach ($gachas as $gacha)
 {
-    echo "<div class='blockline'>";
-
-    echo "<div>";
-    echo "<a href='index.php?bro=gacha&action=front&id=".$gacha->id."'>".$gacha->title."</a>";
-    echo "<p class='money'>".$gacha->pullPrice."po</p>";
-    echo "</div>";
-
-    echo "<div>";
-    echo "<p class='mini'>by</p><a class='mini' href=index.php?bro=account&id=".$gacha->owner->id.">".$gacha->owner->name."</a>";
-    echo "</div>";
-
-    echo "</div>";
+    include __DIR__."/../preview/gacha.php";
 }
 
 ?>

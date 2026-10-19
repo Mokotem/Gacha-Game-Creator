@@ -27,6 +27,7 @@ class GachaControler extends BaseControler
         $this->source = new SourceRepository();
         $this->effect = new EffectRepository();
         $this->item = new ItemRepository($this->gacha, $this->source, $this->effect);
+        $this->gacha->setItems($this->item);
 
     }
 
@@ -53,14 +54,12 @@ class GachaControler extends BaseControler
     public function front(int $id = -1)
     {
         $ga = $this->gacha->fromId($id < 0 ? $_GET['id'] : $id);
-        $items = $this->gacha->join($ga, "Item", $this->item);
         $this->showp("frontPage.php", ["gacha" => $ga, "items" => $items]);
     }
 
     public function allItems()
     {
         $ga = $this->gacha->fromId($_GET['id']);
-        $items = $this->gacha->join($ga, "Item", $this->item);
         $this->showp(
             "allItems.php",
             ["gacha" => $ga, "items" => $items]

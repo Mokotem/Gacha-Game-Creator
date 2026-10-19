@@ -15,6 +15,9 @@ class Gacha extends BaseData
     public int $visibility;
     public int $pullPrice;
 
+    /** @var array<Item> */
+    public array $items;
+
     public function __construct(
         ?int $id,
         string $title,

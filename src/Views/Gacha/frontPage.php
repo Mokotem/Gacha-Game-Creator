@@ -4,7 +4,6 @@ Use GachaGameCreator\Modele\Data\Item;
 Use GachaGameCreator\Modele\Session;
 /**
  * @var Gacha $gacha
- * @var array<Item> $items
  * @var array<int> $availablesIts
  * @var array<int> $availablesEfs
  * */
@@ -38,17 +37,16 @@ Use GachaGameCreator\Modele\Session;
 <div>
 
 
-    <h2>Items</h2>
+    <h2>Items (<?=count($gacha->items)?>) <a class="mini" href="index.php?bro=gacha&action=allItems&id=<?=$gacha->id?>">Show all items</a></h2>
 
     <div style="display: flex; overflow-x: scroll;">
         <?php
-        foreach ($items as $it)
+        foreach ($gacha->items as $it)
         {
-            echo $it->getPreviewInGacha();
+            echo $it->preview();
         }
         ?>
     </div>
-    <a href="index.php?bro=gacha&action=allItems&id=<?=$gacha->id?>">Show all items</a>
 
     <div class="line"></div>
 

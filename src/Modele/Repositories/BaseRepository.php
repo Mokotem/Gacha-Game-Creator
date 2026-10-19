@@ -72,11 +72,11 @@ abstract class BaseRepository
     /**
      * @param T $data
      */
-    public function join(BaseData $data, BaseRepository $repo) : array
+    public function childs(BaseData $data, BaseRepository $repo)
     {
         try
         {
-            $state = Connexion::getPdo()->query("SELECT * FROM $this->table WHERE $repo->clep = $data->id");
+            $state = Connexion::getPdo()->query("SELECT * FROM $repo->table WHERE $this->clep = $data->id");
         }
         catch (PDOException $ex)
         {
@@ -84,7 +84,7 @@ abstract class BaseRepository
             return [];
         }
 
-        return $this->fromState($state);
+        return $repo->fromState($state);
     }
 
     public function getAll(): array

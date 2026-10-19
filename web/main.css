@@ -5,11 +5,32 @@ body
     background-color: rgb(196, 196, 196);
 }
 
+main
+{
+    display: flex;
+    gap: 16px;
+
+    justify-content: center;
+    width: fit-content;
+    margin: 0px auto;
+}
 body > div
+{
+    width: fit-content;
+    margin: 0px auto;
+}
+
+body > div > div
 {
     width: 720px;
     max-width: 100%;
-    margin: 0px auto;
+    margin-right: 8px;
+    margin-bottom: 16px;
+}
+
+footer
+{
+    width: 100%;
 }
 
 button, body
@@ -36,7 +57,18 @@ nav a
     margin-right: 16px;
 }
 
-body > div > main, body > div > secion, body > div > footer
+main > div
+{
+    min-width: 720px;
+}
+
+main > aside
+{
+    flex: 1;
+    min-width: 360px;
+}
+
+main > div, secion, footer, aside
 {
     padding: 32px;
     background-color: white;
@@ -232,10 +264,18 @@ a.item > div > img
     text-align: center;
 }
 
+.horizontalScroll
+{
+    padding: 8px;
+    overflow-x: scroll;
+}
+
 
 .box
 {
     margin: 8px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .yellow

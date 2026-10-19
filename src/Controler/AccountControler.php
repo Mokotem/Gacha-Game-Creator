@@ -5,8 +5,11 @@ namespace GachaGameCreator\Controler;
 use GachaGameCreator\lib\Password;
 use GachaGameCreator\Modele\Data\Player;
 use GachaGameCreator\Modele\Repositories\Connexion;
+use GachaGameCreator\Modele\Repositories\EffectRepository;
 use GachaGameCreator\Modele\Repositories\GachaRepository;
+use GachaGameCreator\Modele\Repositories\ItemRepository;
 use GachaGameCreator\Modele\Repositories\PlayerRepository;
+use GachaGameCreator\Modele\Repositories\SourceRepository;
 use GachaGameCreator\Modele\Session;
 use http\Exception\BadMethodCallException;
 
@@ -14,12 +17,19 @@ class AccountControler extends BaseControler
 {
     private PlayerRepository $player;
     private GachaRepository $gacha;
+    private ItemRepository $item;
+    private SourceRepository $source;
+    private EffectRepository $effect;
 
     public function __construct()
     {
         parent::__construct("Account");
         $this->player = new PlayerRepository();
         $this->gacha = new GachaRepository($this->player);
+        $this->source = new SourceRepository();
+        $this->effect = new EffectRepository();
+        $this->item = new ItemRepository($this->gacha, $this->source, $this->effect);
+        $this->gacha->setItems($this->item);
     }
 
     public function defaultAction()
@@ -133,7 +143,7 @@ class AccountControler extends BaseControler
         }
 
         $p = $this->player->fromId($id);
-        $gachas = $this->gacha->join($p, $this->player);
+        $gachas = $this->player->childs($p, $this->gacha);
 
         if (!is_null($p))
         {

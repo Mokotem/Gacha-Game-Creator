@@ -12,11 +12,17 @@ use PDOException;
 class GachaRepository extends BaseRepository
 {
     private PlayerRepository $player;
+    private ItemRepository $item;
 
     function __construct(PlayerRepository $player)
     {
         parent::__construct("Gacha");
         $this->player = $player;
+    }
+
+    public function setItems(ItemRepository $items)
+    {
+        $this->item = $items;
     }
 
     public function fromTable(array $value) : Gacha
@@ -29,6 +35,8 @@ class GachaRepository extends BaseRepository
             $value["pullPrice"] ?? 10,
             $value["visibility"] ?? 0
             );
+
+        $result->items = $this->childs($result, $this->item);
 
         return $result;
     }
