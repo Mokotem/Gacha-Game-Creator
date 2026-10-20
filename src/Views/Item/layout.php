@@ -5,16 +5,10 @@
    * @var Gacha $gacha
    * */
 ?>
-
-<!DOCTYPE html>
-<head>
-    <link href="main.css" rel="stylesheet" />
-    <title>GGC > Gacha</title>
-</head>
 <body>
     <?php
 
-    require(__DIR__ . "/../nav.html");
+    require(__DIR__ . "/../nav.php");
     ?>
     <div>
         <?php

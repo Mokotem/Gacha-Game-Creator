@@ -14,5 +14,5 @@ abstract class Source extends BaseData
         $this->homePageUrl = $homePage;
     }
 
-    public abstract function fillInfos(Item $item) : bool;
+    public abstract function fillInfos(Item $item) : string;
 }

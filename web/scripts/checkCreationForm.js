@@ -1,6 +1,6 @@
 
 
-function Check()
+function CheckAccount()
 {
     if (checkEstNom("uname"))
     {

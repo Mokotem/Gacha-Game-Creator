@@ -114,11 +114,29 @@ abstract class BaseRepository
     /**
      * @return array<T>
      */
-    public function getWhere(string $attr, string $value): array
+    public function getWhereEquals(string $attr, string $value): array
     {
         try
         {
             $state = Connexion::getPdo()->query("SELECT * FROM $this->table WHERE $attr = '$value';");
+        }
+        catch (PDOException $error)
+        {
+            BaseControler::errorFromPDO($error);
+            return [];
+        }
+
+        return $this->fromState($state);
+    }
+
+    /**
+     * @return array<T>
+     */
+    public function getWhere(string $truc): array
+    {
+        try
+        {
+            $state = Connexion::getPdo()->query("SELECT * FROM $this->table WHERE $truc;");
         }
         catch (PDOException $error)
         {

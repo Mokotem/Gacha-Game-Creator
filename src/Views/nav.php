@@ -1,5 +1,7 @@
 
-
+<?php
+use GachaGameCreator\Modele\Session;
+ ?>
 
 <nav>
     <div>
@@ -11,5 +13,6 @@
     </div>
     <div>
         <a href="index.php?bro=account&action=profile">Account</a>
+        <?=Session::get()->active() ? money(Session::get()->money()) : ""?>
     </div>
 </nav>

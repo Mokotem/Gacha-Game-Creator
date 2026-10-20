@@ -1,17 +1,11 @@
 <?php
     /** @var string $bodyPath */
 ?>
-
-<!DOCTYPE html>
-<head>
-    <link href="main.css" rel="stylesheet" />
-    <title>GGC > Home</title>
-</head>
 <body>
 
     <?php
 
-    require(__DIR__ . "/../nav.html");
+    require(__DIR__ . "/../nav.php");
     ?>
     <div>
         <main>

@@ -1,5 +1,13 @@
 <?php
 
+
+function money(int $amount) : string
+{
+    return "<div class='money'>
+                <p>$amount</p><img src='content/money.png'/>
+            </div>";
+}
+
 require_once __DIR__ . "/../src/Lib/Psr4AutoloaderClass.php";
 
 use GachaGameCreator\Lib\Psr4AutoloaderClass;
@@ -9,5 +17,7 @@ $loader->register();
 $loader->addNamespace("GachaGameCreator", __DIR__ . "/../src");
 
 use GachaGameCreator\Controler\BaseControler;
+
+set_time_limit(10);
 
 BaseControler::call($_GET["bro"], $_GET["action"]);

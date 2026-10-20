@@ -33,7 +33,7 @@ class PlayerRepository extends BaseRepository
 
     public function fromEmail(string $email) : ?Player
     {
-        $result = $this->getWhere("email", $email);
+        $result = $this->getWhereEquals("email", $email);
         if (count($result) > 0)
         {
             return $result[0];

@@ -30,7 +30,7 @@ class GachaRepository extends BaseRepository
         $result = new Gacha(
             $value["idGacha"],
             $value["title"],
-            $value["desc"],
+            $value["description"],
             $this->player->fromId($value["idPlayer"]),
             $value["pullPrice"] ?? 10,
             $value["visibility"] ?? 0
@@ -64,6 +64,30 @@ class GachaRepository extends BaseRepository
         }
 
         return true;
+    }
+
+    public function update(Gacha $g) : bool
+    {
+        $state = Connexion::getPdo()->prepare("UPDATE $this->table
+        SET title = :t, description = :d, pullPrice = :p WHERE $this->clep = $g->id");
+
+        try
+        {
+            $state->execute(
+                [
+                    "t" => $g->title,
+                    "d" => $g->desc,
+                    "p" => $g->pullPrice
+                ]
+            );
+        }
+        catch (PDOException $ex)
+        {
+            BaseControler::errorFromPDO($ex);
+            return false;
+        }
+
+        return $state->rowCount() > 0;
     }
 
     public function itemCount(Gacha $value) : int

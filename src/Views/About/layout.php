@@ -2,21 +2,18 @@
 /** @var string $bodyPath */
 ?>
 
-<!DOCTYPE html>
-<head>
-    <link href="main.css" rel="stylesheet" />
-    <title>GGC > About</title>
-</head>
 <body>
 <?php
 
-require(__DIR__ . "/../nav.html");
+require(__DIR__ . "/../nav.php");
 ?>
 <div>
     <main>
+        <div>
         <?php
         require($bodyPath);
         ?>
+        </div>
     </main>
 </div>
 </body>

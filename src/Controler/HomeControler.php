@@ -40,7 +40,7 @@ class HomeControler extends BaseControler
 
     public function gachas()
     {
-        $this->showp("gachas.php", ["gachas" => $this->gacha->getAll()]);
+        $this->showp("gachas.php", ["gachas" => $this->gacha->getWhere("visibility > 9")]);
     }
 
     /**

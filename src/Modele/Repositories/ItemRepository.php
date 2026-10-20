@@ -32,7 +32,7 @@ class ItemRepository extends BaseRepository
             $value["name"],
             $value["rarity"],
             $value["idImage"],
-            $this->gacha->fromId($value["idGacha"]),
+            $value["idGacha"],
             $value["urlFull"],
             $value["urlSmall"],
             $value["urlSource"],
@@ -47,7 +47,7 @@ class ItemRepository extends BaseRepository
     public function insert($item) : bool
     {
         $state = Connexion::getPdo()->prepare("INSERT INTO Item VALUES
-                     (:name, :rarity, :idimage, :idgacha, :small, :full, :source, :idsource, :character);");
+                     (:name, :rarity, :idimage, :idgacha, :small, :full, :source, :idsource, :character, :d);");
 
         try
         {
@@ -56,12 +56,13 @@ class ItemRepository extends BaseRepository
                     "name" => $item->name,
                     "rarity" => $item->rarity,
                     "idimage" => $item->imageId,
-                    "idgacha" => $item->gacha->id,
+                    "idgacha" => $item->idGacha,
                     "small" => $item->urlSmall,
                     "full" => $item->urlFull,
                     "source" => $item->urlSource,
                     "idsource" => $item->source->id,
-                    "character" => $item->character
+                    "character" => $item->character,
+                    "d" => (new \DateTime())->format("Y-m-d")
                 ]
             );
         }

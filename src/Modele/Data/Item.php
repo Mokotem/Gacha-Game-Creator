@@ -7,11 +7,11 @@ class Item extends BaseData
     public string $name;
     public int $rarity;
     public string $imageId;
-    public Gacha $gacha;
+    public int $idGacha;
     public string $urlFull;
     public string $urlSmall;
     public ?string $urlSource;
-    public string $character;
+    public ?string $character;
     public Source $source;
 
     public function __construct(
@@ -19,11 +19,11 @@ class Item extends BaseData
         string $name,
         int $rarity,
         string $imageId,
-        Gacha $gacha,
+        int $gacha,
         string $urlFull,
         string $urlSmall,
         ?string $urlSource,
-        string $character,
+        ?string $character,
         Source $source
     )
     {
@@ -31,7 +31,7 @@ class Item extends BaseData
         $this->name = $name;
         $this->rarity = $rarity;
         $this->imageId = $imageId;
-        $this->gacha = $gacha;
+        $this->idGacha = $gacha;
         $this->urlSmall = $urlSmall;
         $this->urlFull = $urlFull;
         $this->urlSource = $urlSource;
@@ -43,7 +43,7 @@ class Item extends BaseData
     {
         return "
         <a class='item' href='index.php?bro=gacha&action=item&id=$this->id'>
-            <div $tag>
+            <div $tag class='fill'>
             <img src='$this->urlSmall'/>
             </div>
             <p>$this->name</p>

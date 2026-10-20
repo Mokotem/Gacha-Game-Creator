@@ -23,4 +23,14 @@ class AboutControler extends BaseControler
     {
         $this->showp("about.html");
     }
+
+    public function gacha()
+    {
+        $this->showp("gacha.html");
+    }
+
+    public function items()
+    {
+        $this->showp("items.html");
+    }
 }

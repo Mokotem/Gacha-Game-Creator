@@ -63,8 +63,12 @@ abstract class BaseControler
 
     protected function showp(string $page, array $args = [])
     {
+        $_title = $this->directory;
+        require __DIR__."/../Views/header.php";
+
         extract($args);
         extract($this->args);
+
         $bodyPath = __DIR__ . "/../Views/" . $this->directory . "/$page";
         require(__DIR__ . "/../Views/" . $this->directory . "/layout.php");
         $this->args = [];

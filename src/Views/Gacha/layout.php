@@ -7,16 +7,11 @@ use GachaGameCreator\Modele\Session;
    * @var Gacha $gacha
    * */
 ?>
-
-<!DOCTYPE html>
-<head>
-    <link href="main.css" rel="stylesheet" />
-    <title>GGC > Gacha</title>
-</head>
+?>
 <body>
     <?php
 
-    require(__DIR__ . "/../nav.html");
+    require(__DIR__ . "/../nav.php");
     ?>
     <div>
 
@@ -41,7 +36,7 @@ use GachaGameCreator\Modele\Session;
                 if (Session::get()->id() == $gacha->owner->id)
                 {
                     echo "<aside>";
-                    include __DIR__."/settings.php";
+                    include __DIR__ . "/construction.php";
                     echo "</aside>";
                 }
             }

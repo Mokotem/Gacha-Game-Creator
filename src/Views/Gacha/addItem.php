@@ -18,7 +18,7 @@
 <script src="scripts/lib.js"></script>
 <script src="scripts/checkItemForm.js"></script>
 
-<form class="main" name="form1" method="post" action="index.php?bro=gacha&action=<?= $confirm ? 'uploadItem' : 'confirmItem' ?>" onsubmit="return Check()">
+<form class="main" name="form1" method="post" action="index.php?bro=gacha&action=<?= $confirm ? 'uploadItem' : 'confirmItem' ?>" onsubmit="return CheckItem()">
     <div>
         <label for="name">item name:</label>
         <input required id="name" name="name" type="text" maxlength="32" value="<?=$item->name?>"/>

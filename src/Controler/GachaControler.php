@@ -47,14 +47,28 @@ class GachaControler extends BaseControler
     {
         if ($this->checkLogedin())
         {
-            $this->showp("create.html");
+            $this->showp("create.php");
         }
     }
 
     public function front(int $id = -1)
     {
         $ga = $this->gacha->fromId($id < 0 ? $_GET['id'] : $id);
-        $this->showp("frontPage.php", ["gacha" => $ga, "items" => $items]);
+        if ($ga->visibility > 9)
+        {
+            $this->showp("frontPage.php", ["gacha" => $ga]);
+        }
+        else
+        {
+            if ($ga->owner->id == Session::get()->id())
+            {
+                $this->showp("frontPage.php", ["gacha" => $ga]);
+            }
+            else
+            {
+                $this->showp("inConstruction.php", ["gacha" => $ga]);
+            }
+        }
     }
 
     public function allItems()
@@ -62,7 +76,7 @@ class GachaControler extends BaseControler
         $ga = $this->gacha->fromId($_GET['id']);
         $this->showp(
             "allItems.php",
-            ["gacha" => $ga, "items" => $items]
+            ["gacha" => $ga]
         );
     }
 
@@ -84,7 +98,10 @@ class GachaControler extends BaseControler
         $sources = $this->source->getAll();
 
         $it = $this->item->fromTable($_POST);
-        if ($it->source->fillInfos($it))
+
+        $res = $it->source->fillInfos($it);
+
+        if (strlen($res) < 2)
         {
             $this->showp(
                 "addItem.php",
@@ -106,7 +123,7 @@ class GachaControler extends BaseControler
                     "sources" => $sources,
                     "confirm" => false,
                     "item" => $it,
-                    "errorMessage" => "Error loading id '".$it->imageId."'."
+                    "errorMessage" => "Error: $res"
                 ]
             );
         }
@@ -116,7 +133,7 @@ class GachaControler extends BaseControler
     public function uploadItem()
     {
         $it = $this->item->fromTable($_POST);
-        $it->source->fillInfos($it);
+        $result = $it->source->fillInfos($it);
 
         if ($this->item->insert($it))
         {
@@ -126,18 +143,27 @@ class GachaControler extends BaseControler
 
     public function uploadGacha()
     {
-        $_POST["idPlayer"] = Session::get()->id();
-        $ga = $this->gacha->fromTable($_POST);
-        if ($this->gacha->insert($ga))
+        if ($_POST["mode"] == "edit")
         {
-            $this->front(Connexion::getPdo()->lastInsertId());
+            $ga = $this->gacha->fromTable($_POST);
+            if ($this->gacha->update($ga))
+            {
+                $this->front($ga->id);
+            }
+        }
+        else
+        {
+            $ga = $this->gacha->fromTable($_POST);
+            if ($this->gacha->insert($ga))
+            {
+                $this->front(Connexion::getPdo()->lastInsertId());
+            }
         }
     }
 
     public function myGachas()
     {
-        $gachas = $this->gacha->getWhere("idPlayer", Session::getAccount());
-        echo "debug: ". print_r($gachas);
+        $gachas = $this->gacha->getWhereEquals("idPlayer", Session::get()->id());
         $this->showp("myGachas.php", ["values" => $gachas]);
     }
 

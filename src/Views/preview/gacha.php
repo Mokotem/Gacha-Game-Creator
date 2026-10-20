@@ -21,7 +21,7 @@ Use GachaGameCreator\Modele\Data\Item;
         ?>
         <?=
         $visibility ?
-        $gacha->visibility > 0 ? "<p class='valid'>public</p>" : "<p class='error'>private</p>"
+        $gacha->visibility > 9 ? "<p class='valid'>public</p>" : "<p class='construction'>in construction</p>"
             : ""
         ?>
     </div>

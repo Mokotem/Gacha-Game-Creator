@@ -1,6 +1,6 @@
 
 
-function Check()
+function CheckGacha()
 {
-    return checkIdIsTitle("title");
+    return checkEstTitle("title");
 }

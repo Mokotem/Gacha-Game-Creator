@@ -80,7 +80,7 @@ class AccountControler extends BaseControler
     {
         if ($_POST["method"] == "email")
         {
-            $pl = $this->player->getWhere("money", 1000)[0];
+            $pl = $this->player->getWhereEquals("money", 1000)[0];
             if (is_null($pl))
             {
                 $this->args["message"] = "No account with email '$_POST[email]'.";

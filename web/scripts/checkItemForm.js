@@ -2,8 +2,9 @@
 
 
 
-function Check()
+function CheckItem()
 {
+    console.log("aaaaaa");
     if (checkEstTitle("name"))
     {
         document.getElementById("subid").hidden = true;
