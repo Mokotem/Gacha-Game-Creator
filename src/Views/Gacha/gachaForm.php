@@ -3,14 +3,30 @@
 
 use GachaGameCreator\Modele\Data\Gacha;
 use GachaGameCreator\Modele\Session;
+use \GachaGameCreator\Modele\Repositories\Connexion;
 
 /**
  * @var Gacha $gacha
  * @var bool $editMode;
  */
+
+echo "select title from gacha where owner = $gacha->owner->id AND idGacha <> $gacha->id;";
+$state = Connexion::getPdo()->query("select title from gacha where owner = $gacha->owner->id AND idGacha <> $gacha->id;");
 ?>
 
+
+
 <script src="scripts/lib.js"></script>
+<script>
+    let names = <?php
+            $res = [];
+            foreach ($state as $line)
+            {
+                $res[] = $line["title"];
+            }
+            echo json_encode($res);
+    ?>
+</script>
 <script src="scripts/checkGachaForm.js"></script>
 
 <form class="mainForm" name="form1" method="post" action="index.php?bro=gacha&action=uploadGacha" onsubmit="return CheckGacha()">

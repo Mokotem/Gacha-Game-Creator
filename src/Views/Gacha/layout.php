@@ -5,8 +5,8 @@ use GachaGameCreator\Modele\Session;
 /**
    * @var string $bodyPath
    * @var Gacha $gacha
+ * @var string $message
    * */
-?>
 ?>
 <body>
     <?php
@@ -42,8 +42,8 @@ use GachaGameCreator\Modele\Session;
             }
             ?>
         </main>
-        <footer>
-            Site de frite4656
-        </footer>
+        <?php
+        require __DIR__."/../footer.html";
+        ?>
     </div>
 </body>

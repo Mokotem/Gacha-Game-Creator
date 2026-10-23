@@ -55,7 +55,7 @@ Use GachaGameCreator\Modele\Session;
             <input id="idEffect" hidden/>
 
             <label for="subut"><?=money($gacha->pullPrice)?></label>
-            <button id="subut" style="background-color: rgb(0, 255, 255)" type="submit">
+            <button id="subut" style="background-color: rgb(0, 255, 255)" type="<?=$gacha->visibility > 9 ? "submit" : "button"?>">
                 Pull!
             </button>
         </div>

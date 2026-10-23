@@ -10,6 +10,7 @@ use GachaGameCreator\Modele\Repositories\ItemRepository;
 use GachaGameCreator\Modele\Repositories\PlayerRepository;
 use GachaGameCreator\Modele\Repositories\SourceRepository;
 use GachaGameCreator\Modele\Session;
+use GachaGameCreator\Service\Errors\NotImplementedError;
 
 class ItemControler extends BaseControler
 {
@@ -32,7 +33,7 @@ class ItemControler extends BaseControler
 
     public function defaultAction()
     {
-
+        $this->explore();
     }
 
     public function get()
@@ -66,11 +67,11 @@ class ItemControler extends BaseControler
 
     public function front(int $id = -1)
     {
-
+        BaseControler::error(new NotImplementedError("item front page"));
     }
 
     public function explore()
     {
-
+        BaseControler::error(new NotImplementedError("explore items"));
     }
 }

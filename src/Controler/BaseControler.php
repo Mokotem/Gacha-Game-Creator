@@ -4,6 +4,9 @@ namespace GachaGameCreator\Controler;
 
 use GachaGameCreator\Modele\Repositories\Connexion;
 use GachaGameCreator\Modele\Session;
+use GachaGameCreator\Service\Errors\ActionNotFoundError;
+use GachaGameCreator\Service\Errors\BroNotFoundError;
+use GachaGameCreator\Service\Errors\GGCError;
 use PDOException;
 use PDOStatement;
 
@@ -11,19 +14,17 @@ abstract class BaseControler
 {
     public static function call(?string $bro, ?string $action = null) : bool
     {
-        if (!is_null($bro))
+        if (is_null($bro))
         {
-            $cont = "GachaGameCreator\\Controler\\". ucfirst($bro)."Controler";
-
-            if (!class_exists($cont))
-            {
-                BaseControler::error("Controler '" . $cont . "' does not exists.", 2);
-                return false;
-            }
+            $bro = "Home";
         }
-        else
+
+        $cont = "GachaGameCreator\\Controler\\". ucfirst($bro)."Controler";
+
+        if (!class_exists($cont))
         {
-            $cont = "GachaGameCreator\Controler\HomeControler";
+            BaseControler::error(new BroNotFoundError($bro));
+            return false;
         }
 
         $main = new $cont();
@@ -38,7 +39,7 @@ abstract class BaseControler
             }
             else
             {
-                BaseControler::error("Action '$action' is not implemented in '$cont'.", 1);
+                BaseControler::error(new ActionNotFoundError($bro, $action));
                 return false;
             }
         }
@@ -63,15 +64,36 @@ abstract class BaseControler
 
     protected function showp(string $page, array $args = [])
     {
-        $_title = $this->directory;
-        require __DIR__."/../Views/header.php";
-
-        extract($args);
-        extract($this->args);
-
-        $bodyPath = __DIR__ . "/../Views/" . $this->directory . "/$page";
-        require(__DIR__ . "/../Views/" . $this->directory . "/layout.php");
+        foreach ($args as $a)
+        {
+            $this->args[] = $a;
+        }
+        BaseControler::showPage($this->directory, $page, $this->args);
         $this->args = [];
+    }
+
+    private static function showPage(string $directory, string $page, array $args = [])
+    {
+        if ($directory == "none")
+        {
+            $_title = "";
+            require __DIR__ . "/../Views/header.php";
+
+            extract($args);
+
+            $bodyPath = __DIR__ . "/../Views/$page";
+            require(__DIR__ . "/../Views/Home/layout.php");
+        }
+        else
+        {
+            $_title = " > $directory";
+            require __DIR__ . "/../Views/header.php";
+
+            extract($args);
+
+            $bodyPath = __DIR__ . "/../Views/" . $directory . "/$page";
+            require(__DIR__ . "/../Views/" . $directory . "/layout.php");
+        }
     }
 
     protected function checkLogedin() : bool
@@ -93,11 +115,10 @@ abstract class BaseControler
      * 3: email allready exists
      * 4: user doesn't exists
      */
-    public static function error(string $errorMessage, int $pcode, string $redirect = "")
+    public static function error(GGCError $error)
     {
-        $code = "GGC" . $pcode;
-        $bodyPath = __DIR__ . "/../Views/Error.php";
-        require(__DIR__ . "/../Views/Home/layout.php");
+        self::showPage("none", "errors/ggc.php", [
+            "error" => $error, "_title" => "Error"]);
     }
 
     private static string $pdoRedirect = "";
@@ -109,16 +130,28 @@ abstract class BaseControler
 
     public static function errorFromPDO(PDOException $pdo, string $redirect = "")
     {
-        $code = $pdo->getCode();
-        $errorMessage = $pdo->getMessage();
-
         if (strlen($redirect) < 2)
         {
             $redirect = self::$pdoRedirect;
         }
 
-        $bodyPath = __DIR__ . "/../Views/Error.php";
-        require(__DIR__ . "/../Views/Home/layout.php");
+        $err = GGCError::has($pdo->errorInfo[1]);
+        if (is_null($err))
+        {
+            self::showPage("none", "errors/pdo.php", [
+                "pdo" => $pdo,
+                "redirect" => $redirect,
+                "_title" => "Error"]);
+        }
+        else
+        {
+            self::showPage("none", "errors/ggc.php", [
+                "pdo" => $pdo,
+                "error" => $err,
+                "redirect" => $redirect,
+                "_title" => "Error"]);
+        }
+
     }
 }
 

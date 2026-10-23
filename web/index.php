@@ -17,7 +17,11 @@ $loader->register();
 $loader->addNamespace("GachaGameCreator", __DIR__ . "/../src");
 
 use GachaGameCreator\Controler\BaseControler;
+use GachaGameCreator\Service\Errors\GGCError;
+
+GGCError::init();
 
 set_time_limit(10);
 
 BaseControler::call($_GET["bro"], $_GET["action"]);
+

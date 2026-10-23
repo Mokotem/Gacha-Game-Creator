@@ -26,8 +26,8 @@
         ?>
         </main>
 
-        <footer>
-            Site de frite4656
-        </footer>
+        <?php
+        require __DIR__."/../footer.html";
+        ?>
     </div>
 </body>

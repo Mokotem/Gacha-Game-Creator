@@ -102,6 +102,7 @@ class AccountControler extends BaseControler
         if (Password::verifier($_POST["password"], $pl->password))
         {
             Session::get()->setId($pl->id);
+            Session::get()->write("money", $pl->money);
             $this->profile();
             return true;
         }

@@ -30,7 +30,19 @@ body > div > div
 
 footer
 {
-    width: 100%;
+    display: flex;
+    justify-content:space-between;
+}
+
+footer p
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+footer > div
+{
+    display: table;
 }
 
 button, body
@@ -52,6 +64,7 @@ nav
     display:flex;
     justify-content:space-between;
 }
+
 
 nav > div
 {
@@ -129,16 +142,6 @@ body > div .title
 .centerVert
 {
     margin: auto 0px;
-}
-
-nav 
-{
-    display:flex;
-}
-
-nav > a
-{
-    margin-right: 32px;
 }
 
 h1
@@ -337,4 +340,39 @@ div.money
     max-width: 24px;
     max-height: 24px;
     margin-left: 4px;
+}
+
+.discret, .grayText
+{
+    color: rgb(128, 128, 128);
+}
+
+.discret
+{
+    font-size: 16px;
+}
+
+.duo
+{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.duo > div
+{
+    flex: 1;
+    max-width: 50%;
+}
+
+.duo img
+{
+    max-width: 100%;
+}
+
+
+
+.duo a > img
+{
+    max-width: 16px;
 }

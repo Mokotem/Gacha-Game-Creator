@@ -1,5 +1,8 @@
 <?php
-    /** @var string $bodyPath */
+    /**
+     * @var string $bodyPath
+     * @var string $message
+     */
 ?>
 <body>
 
@@ -23,8 +26,8 @@
                 ?>
             </div>
         </main>
-        <footer>
-            Site de frite4656
-        </footer>
+        <?php
+        require __DIR__."/../footer.html";
+        ?>
     </div>
 </body>

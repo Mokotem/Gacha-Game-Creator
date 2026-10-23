@@ -50,10 +50,9 @@ class Session
         return $_SESSION["money"] ?? -1;
     }
 
-    public function setId(int $value, int $money) : void
+    public function setId(int $value) : void
     {
         $_SESSION["idPlayer"] = $value;
-        $_SESSION["money"] = $money;
     }
 
     public function write(string $nom, mixed $valeur) : void
