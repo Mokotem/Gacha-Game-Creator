@@ -100,7 +100,7 @@ class NotImplementedError extends GGCError
     {
         parent::__construct(
             "The feature '$name' is not implemented yet.",
-            "I'im coding! Get out!",
+            "I'm coding! Get out!",
             "2028593279974167002",
             "HCcC1jlawAAiKa2"
         );

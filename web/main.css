@@ -156,7 +156,7 @@ h2
     font-size: 32px;
 }
 
-.fat, nav a
+.fat, nav a, #aboutDiv a
 {
     font-size: 24px;
 }
@@ -335,7 +335,7 @@ div.money
     margin: auto 0px;
 }
 
-.money img
+.money img, img.money
 {
     max-width: 24px;
     max-height: 24px;
@@ -375,4 +375,9 @@ div.money
 .duo a > img
 {
     max-width: 16px;
+}
+
+#aboutDiv > div:nth-child(2n)
+{
+    text-align: right;
 }

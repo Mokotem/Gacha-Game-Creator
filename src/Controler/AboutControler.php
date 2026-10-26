@@ -24,9 +24,9 @@ class AboutControler extends BaseControler
         $this->showp("about.html");
     }
 
-    public function gacha()
+    public function gachaLifeCycle()
     {
-        $this->showp("gacha.html");
+        $this->showp("gachaLifeCycle.html");
     }
 
     public function items()
