@@ -17,7 +17,6 @@ class GachaControler extends BaseControler
     private PlayerRepository $player;
     private ItemRepository $item;
     private SourceRepository $source;
-    private EffectRepository $effect;
 
     public function __construct()
     {
@@ -25,8 +24,7 @@ class GachaControler extends BaseControler
         $this->player = new PlayerRepository();
         $this->gacha = new GachaRepository($this->player);
         $this->source = new SourceRepository();
-        $this->effect = new EffectRepository();
-        $this->item = new ItemRepository($this->gacha, $this->source, $this->effect);
+        $this->item = new ItemRepository($this->source);
         $this->gacha->setItems($this->item);
 
     }

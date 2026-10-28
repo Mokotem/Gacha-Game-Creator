@@ -3,6 +3,7 @@
 namespace GachaGameCreator\Modele\Repositories;
 
 use GachaGameCreator\Controler\BaseControler;
+use GachaGameCreator\Modele\Data\BaseData;
 use GachaGameCreator\Modele\Data\HaveItem;
 use GachaGameCreator\Modele\Data\Item;
 use GachaGameCreator\Modele\Data\Player;
@@ -12,21 +13,18 @@ use GachaGameCreator\Modele\Data\Player;
  */
 class ItemRepository extends BaseRepository
 {
-    private GachaRepository $gacha;
     private SourceRepository $source;
-    private EffectRepository $effect;
 
-    public function __construct(GachaRepository $gachaRepo, SourceRepository $sourceRepo, EffectRepository $effect)
+    public function __construct(
+        SourceRepository $sourceRepo)
     {
         parent::__construct("Item");
-        $this->gacha = $gachaRepo;
         $this->source = $sourceRepo;
-        $this->effect = $effect;
     }
 
     public function fromTable(array $value) : Item
     {
-        return new Item
+        $result = new Item
         (
             $value["idItem"],
             $value["name"],
@@ -39,6 +37,14 @@ class ItemRepository extends BaseRepository
             $value["character"],
             $this->source->fromId($value["idSource"])
         );
+
+        if (isset($value["idItem"]))
+        {
+            $state = Connexion::getPdo()->query("SELECT idPlayer FROM LikeItem WHERE idItem = $value[idItem]");
+            $result->likes = $state->fetchAll(\PDO::FETCH_NUM);
+        }
+
+        return $result;
     }
 
     /**
@@ -70,53 +76,6 @@ class ItemRepository extends BaseRepository
         {
             BaseControler::errorFromPDO($ex);
             return false;
-        }
-
-        return true;
-    }
-
-    public function insertOwner(Player $p, HaveItem $item) : bool
-    {
-        $state = Connexion::getPdo()->prepare(
-            "insert into HaveItem values ($p->id, $item->item->id, $item->effect->id, :date);");
-        try
-        {
-            $state->execute(
-                [
-                    "date" => (new \DateTime())->format("d-m-Y")
-                ]
-            );
-        }
-        catch (\Exception $ex)
-        {
-            BaseControler::errorFromPDO($ex);
-            return false;
-        }
-
-        return true;
-    }
-
-    public function importItems(Player $p) : bool
-    {
-        $p->items = [];
-        try
-        {
-            $state = Connexion::getPdo()->query("SELECT * FROM HaveItem WHERE idPlayer = $p->id;");
-        }
-        catch (\Exception $ex)
-        {
-            BaseControler::errorFromPDO($ex);
-            return false;
-        }
-
-        foreach ($state as $line)
-        {
-            $hit = new HaveItem(
-                $this->fromId($line["idItem"]),
-                $this->effect->fromId($line["idEffect"]),
-                new \DateTime($line["obtained"])
-            );
-            $p->items[] = $hit;
         }
 
         return true;

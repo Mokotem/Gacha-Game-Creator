@@ -38,6 +38,12 @@ class GachaRepository extends BaseRepository
 
         $result->items = $this->childs($result, $this->item);
 
+        if (isset($value["idGacha"]))
+        {
+            $state = Connexion::getPdo()->query("SELECT P.* FROM Player P JOIN LikeGacha L ON P.idPlayer = L.idPlayer WHERE L.idGacha = $value[idGacha]");
+            $result->likes = $this->player->fromState($state);
+        }
+
         return $result;
     }
 

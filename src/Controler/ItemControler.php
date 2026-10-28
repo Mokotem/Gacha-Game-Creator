@@ -14,7 +14,6 @@ use GachaGameCreator\Service\Errors\NotImplementedError;
 
 class ItemControler extends BaseControler
 {
-    private GachaRepository $gacha;
     private PlayerRepository $player;
     private ItemRepository $item;
     private SourceRepository $source;
@@ -24,10 +23,9 @@ class ItemControler extends BaseControler
     {
         parent::__construct("Item");
         $this->player = new PlayerRepository();
-        $this->gacha = new GachaRepository($this->player);
         $this->source = new SourceRepository();
         $this->effect = new EffectRepository();
-        $this->item = new ItemRepository($this->gacha, $this->source, $this->effect);
+        $this->item = new ItemRepository($this->source);
     }
 
 

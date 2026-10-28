@@ -15,6 +15,9 @@ class Gacha extends BaseData
     public int $visibility;
     public int $pullPrice;
 
+    /** @var array<int> */
+    public array $likes;
+
     /** @var array<Item> */
     public array $items;
 
@@ -32,6 +35,7 @@ class Gacha extends BaseData
         $this->owner = $player;
         $this->pullPrice = $pullPrice;
         $this->visibility = $visibility;
+        $this->likes = [];
     }
 }
 

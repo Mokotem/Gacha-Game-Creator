@@ -14,6 +14,9 @@ class Item extends BaseData
     public ?string $character;
     public Source $source;
 
+    /** @var array<int>  */
+    public array $likes;
+
     public function __construct(
         ?int $id,
         string $name,
@@ -37,6 +40,7 @@ class Item extends BaseData
         $this->urlSource = $urlSource;
         $this->character = $character;
         $this->source = $source;
+        $this->likes = [];
     }
 
     public function preview(string $tag = "") : string

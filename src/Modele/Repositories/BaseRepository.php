@@ -13,10 +13,19 @@ abstract class BaseRepository
     protected string $table;
     protected string $clep;
 
+    /** @var array<T> */
+    private array $cache;
+
     protected function __construct(string $tableName)
     {
         $this->table = $tableName;
         $this->clep = "id".$tableName;
+        $this->cache = array();
+    }
+
+    public function clearCache()
+    {
+        $this->cache = array();
     }
 
     /** @return T  */
@@ -29,6 +38,11 @@ abstract class BaseRepository
     /** @return T */
     public function fromId(int $id)
     {
+        if (in_array($id, $this->cache))
+        {
+            return $this->cache[$id];
+        }
+
         $state = Connexion::getPdo()->prepare("SELECT * FROM " . $this->table . " WHERE id".$this->table." = :id;");
 
         try
@@ -48,10 +62,12 @@ abstract class BaseRepository
         $line = $state->fetch();
         if ($line)
         {
-            return $this->fromTable($line);
+            $result = $this->fromTable($line);
+            $this->cache[$id] = $result;
+            return $result;
         }
 
-        BaseControler::error("Player id '$id' not found.", "4");
+        BaseControler::error(NotFOu);
         return null;
     }
 
